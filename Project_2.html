@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hitendra — Python Games</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* ── GAMES PAGE SPECIFIC ── */
+    .nav-links { align-items: center; }
+    .nav-links a.active { color: var(--ink); }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 9rem 3rem 6rem;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    /* ── PAGE HEADER ── */
+    .games-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 3rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 4rem;
+      gap: 2rem;
+    }
+    .games-tagline {
+      font-size: 14px;
+      color: var(--ink-muted);
+      max-width: 340px;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    /* ── GROUP ── */
+    .game-group {
+      margin-bottom: 4rem;
+    }
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .group-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .group-line {
+      flex: 1;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    /* ── GAME CARDS GRID ── */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .game-card {
+      background: var(--bg);
+      padding: 1.6rem 1.4rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.2rem;
+      transition: background 0.2s;
+      cursor: pointer;
+      min-height: 130px;
+    }
+    .game-card:hover { background: var(--surface); }
+    .game-card:hover .card-arrow { transform: translate(3px, -3px); }
+
+    .card-top {}
+    .card-name {
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .card-lang {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+    }
+    .card-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 2px;
+      border: 0.5px solid var(--border);
+      background: var(--surface);
+      color: var(--ink-muted);
+    }
+    .card-badge.done {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .card-arrow {
+      font-size: 16px;
+      color: var(--ink-muted);
+      transition: transform 0.2s;
+    }
+
+    /* ── PRINT ── */
+    @media print { nav { display: none !important; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .page { padding: 7rem 1.5rem 4rem; }
+      .games-header { flex-direction: column; align-items: flex-start; }
+      .games-tagline { text-align: left; }
+      .games-grid { grid-template-columns: 1fr 1fr; }
+      .games-grid.two-col { grid-template-columns: 1fr 1fr; max-width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .games-grid,
+      .games-grid.two-col { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Hitendra</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="Résumé.html">Resume</a></li>
+      <li><a href="Project 2.html" class="active">Games</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="games-header">
+      <div>
+        <p class="section-label">002 — Python Games</p>
+        <h2>Things I built<br>for fun.</h2>
+      </div>
+      <p class="games-tagline">Coding clicked for me when I started building games. These nine projects are my roadmap, from a simple number guesser to a full Space Invaders clone.</p>
+    </div>
+
+    <!-- GROUP 01 -->
+    <div class="game-group">
+      <div class="group-header">
+        <span class="group-num">01</span>
+        <div class="group-line"></div>
+      </div>
+      <div class="games-grid">
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Number Guessing Game</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">Completed</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Hangman Game</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In Progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Rock Paper Scissors</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- GROUP 02 -->
+    <div class="game-group">
+      <div class="group-header">
+        <span class="group-num">02</span>
+        <div class="group-line"></div>
+      </div>
+      <div class="games-grid">
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Maze Generator</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Blackjack</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Trivia Quiz Game</p>
+            <p class="card-lang">Python</p>
+            <p class="card-lang">JSON</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- GROUP 03 -->
+    <div class="game-group">
+      <div class="group-header">
+        <span class="group-num">03</span>
+        <div class="group-line"></div>
+      </div>
+      <div class="games-grid">
+
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Snake Game</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Space Invaders</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+        <a class="game-card" href="https://github.com/Coder-HSK" target="_blank">
+          <div class="card-top">
+            <p class="card-name">Platformer</p>
+            <p class="card-lang">Python</p>
+          </div>
+          <div class="card-bottom">
+            <span class="card-badge done">In progress</span>
+            <span class="card-arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div><!-- /page -->
+
+  <footer>
+    <p>Designed &amp; built by Hitendra Annavarapu — 2026</p>
+  </footer>
+
+</body>
+</html>
