@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hitendra — Number Guessing Game</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+  <style>
+    .nav-links { align-items: center; }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 9rem 3rem 6rem;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    /* ── HEADER ── */
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 3rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 3rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .game-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .meta-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 3px 9px;
+      border: 0.5px solid var(--border);
+      border-radius: 2px;
+      color: var(--ink-muted);
+      background: var(--surface);
+      letter-spacing: 0.04em;
+    }
+    .back-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--ink); }
+
+    /* ── TERMINAL ── */
+    .terminal-wrap {
+      border: 0.5px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: #141412;
+    }
+
+    /* title bar */
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.75rem 1.2rem;
+      background: #1e1d1a;
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red   { background: #ff5f57; }
+    .dot-yellow{ background: #ffbd2e; }
+    .dot-green { background: #28c840; }
+    .terminal-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+      margin-left: 0.4rem;
+    }
+    .run-btn {
+      margin-left: auto;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 3px;
+      border: 0.5px solid rgba(255,255,255,0.15);
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .run-btn:hover {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.85);
+    }
+    .run-btn.running {
+      color: #28c840;
+      border-color: #28c840;
+    }
+
+    /* output area */
+    .terminal-output {
+      padding: 1.4rem 1.6rem 0;
+      min-height: 260px;
+      max-height: 420px;
+      overflow-y: auto;
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.75;
+      color: #d4d0c8;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .terminal-output::-webkit-scrollbar { width: 4px; }
+    .terminal-output::-webkit-scrollbar-track { background: transparent; }
+    .terminal-output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    .out-line { margin: 0; }
+    .out-line.prompt-line { color: #a8d8a8; }
+    .out-line.error-line  { color: #ff8080; }
+    .out-line.system-line { color: rgba(255,255,255,0.3); font-size: 11px; }
+
+    /* input row */
+    .terminal-input-row {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem 1.6rem 1.2rem;
+      gap: 0.5rem;
+      border-top: 0.5px solid rgba(255,255,255,0.05);
+      margin-top: 0.4rem;
+    }
+    .input-caret {
+      font-family: var(--mono);
+      font-size: 13px;
+      color: #28c840;
+      flex-shrink: 0;
+    }
+    #user-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: #f0ede6;
+      caret-color: #28c840;
+    }
+    #user-input::placeholder { color: rgba(255,255,255,0.2); }
+    #user-input:disabled { opacity: 0.35; cursor: not-allowed; }
+    .send-btn {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 2px;
+      border: 0.5px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .send-btn:hover:not(:disabled) {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8);
+    }
+    .send-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+
+    /* ── CONCEPTS ── */
+    .concepts {
+      margin-top: 2.5rem;
+      padding-top: 2.5rem;
+      border-top: 0.5px solid var(--border);
+    }
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 1.5rem;
+    }
+    .concept-item {
+      background: var(--bg);
+      padding: 1rem 1.2rem;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+      letter-spacing: 0.04em;
+    }
+    .concept-item strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 0.2rem;
+    }
+
+    @media (max-width: 640px) {
+      .page { padding: 7rem 1.5rem 4rem; }
+      .game-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Hitendra</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="Résumé.html">Resume</a></li>
+      <li><a href="Project_2.html">Games</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="game-header">
+      <div>
+        <p class="section-label">Game 01</p>
+        <h2>Number Guessing<br>Game</h2>
+        <div class="game-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">Loops</span>
+          <span class="meta-tag">Conditionals</span>
+          <span class="meta-tag">Functions</span>
+          <span class="meta-tag">Random</span>
+        </div>
+      </div>
+      <a class="back-link" href="Project_2.html">← Back to Games</a>
+    </div>
+
+    <!-- TERMINAL -->
+    <div class="terminal-wrap">
+      <div class="terminal-bar">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+        <span class="terminal-title">number_guessing_game.py</span>
+        <button class="run-btn" id="run-btn" onclick="startGame()">▶ Run</button>
+      </div>
+
+      <div class="terminal-output" id="output">
+        <p class="out-line system-line">// Press ▶ Run to start the game</p>
+      </div>
+
+      <div class="terminal-input-row">
+        <span class="input-caret">›</span>
+        <input type="text" id="user-input" placeholder="Press Run to start…" disabled autocomplete="off" spellcheck="false"/>
+        <button class="send-btn" id="send-btn" onclick="submitInput()" disabled>Enter ↵</button>
+      </div>
+    </div>
+
+    <!-- CONCEPTS -->
+    <div class="concepts">
+      <p class="section-label">Concepts practiced</p>
+      <div class="concepts-grid">
+        <div class="concept-item"><strong>Loops</strong>while + continue</div>
+        <div class="concept-item"><strong>Conditionals</strong>if / elif / else</div>
+        <div class="concept-item"><strong>Functions</strong>def, return values</div>
+        <div class="concept-item"><strong>User Input</strong>input(), try/except</div>
+        <div class="concept-item"><strong>Random</strong>random.randint()</div>
+        <div class="concept-item"><strong>Dicts</strong>.get() with defaults</div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Designed &amp; built by Hitendra Annavarapu — 2026</p>
+  </footer>
+
+  <script>
+    const PYTHON_CODE = `
+import random
+
+def get_difficulty():
+    print("\\n*** NUMBER GUESSING GAME ***")
+    print("Choose difficulty:")
+    print("  1 - Easy   (1-50,  10 guesses)")
+    print("  2 - Medium (1-100, 7 guesses)")
+    print("  3 - Hard   (1-200, 5 guesses)")
+    choice = input("Enter 1, 2, or 3: ").strip()
+    settings = {"1": (50, 10), "2": (100, 7), "3": (200, 5)}
+    return settings.get(choice, (100, 7))
+
+def play_game():
+    max_number, max_guesses = get_difficulty()
+    secret = random.randint(1, max_number)
+    guesses_used = 0
+    print("\\nI'm thinking of a number between 1 and " + str(max_number) + ".")
+    print("You have " + str(max_guesses) + " guesses. Good luck!\\n")
+    while guesses_used < max_guesses:
+        guesses_left = max_guesses - guesses_used
+        try:
+            guess = int(input("Guess (" + str(guesses_left) + " left): "))
+        except ValueError:
+            print("  Please enter a whole number.")
+            continue
+        guesses_used += 1
+        if guess == secret:
+            print("\\nCorrect! You got it in " + str(guesses_used) + " guess(es)!")
+            return True
+        elif guess < secret:
+            print("  Too low!")
+        else:
+            print("  Too high!")
+    print("\\nOut of guesses! The number was " + str(secret) + ".")
+    return False
+
+def main():
+    while True:
+        play_game()
+        again = input("\\nPlay again? (y/n): ").strip().lower()
+        if again != "y":
+            print("Thanks for playing!")
+            break
+
+main()
+`;
+
+    let inputResolve = null;
+    let isRunning    = false;
+    let pre          = null;
+
+    const outputEl = document.getElementById("output");
+    const inputEl  = document.getElementById("user-input");
+    const sendBtn  = document.getElementById("send-btn");
+    const runBtn   = document.getElementById("run-btn");
+
+    // Append raw text straight into <pre> — simplest possible terminal output
+    function appendText(txt) {
+      if (pre) {
+        pre.textContent += txt;
+        outputEl.scrollTop = outputEl.scrollHeight;
+      }
+    }
+
+    function appendSystem(msg, color) {
+      const p = document.createElement("p");
+      p.style.cssText = "color:" + (color || "rgba(255,255,255,0.35)") +
+                        ";font-family:'DM Mono',monospace;font-size:11px;margin:6px 0 0;";
+      p.textContent = msg;
+      outputEl.appendChild(p);
+      outputEl.scrollTop = outputEl.scrollHeight;
+    }
+
+    function setInputEnabled(enabled, placeholder) {
+      inputEl.disabled    = !enabled;
+      sendBtn.disabled    = !enabled;
+      inputEl.placeholder = placeholder || "";
+      if (enabled) inputEl.focus();
+    }
+
+    function builtinRead(x) {
+      if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+        throw "File not found: '" + x + "'";
+      return Sk.builtinFiles["files"][x];
+    }
+
+    function inputFun(prompt) {
+      if (prompt) appendText(prompt);
+      setInputEnabled(true, "Type your answer and press Enter…");
+      return new Promise(resolve => { inputResolve = resolve; });
+    }
+
+    function submitInput() {
+      if (!inputResolve) return;
+      const val = inputEl.value;
+      appendText(val + "\n");
+      inputEl.value = "";
+      setInputEnabled(false, "Waiting…");
+      const cb = inputResolve;
+      inputResolve = null;
+      cb(val);
+    }
+
+    inputEl.addEventListener("keydown", e => { if (e.key === "Enter") submitInput(); });
+
+    function startGame() {
+      if (typeof Sk === "undefined") {
+        outputEl.innerHTML = "";
+        const p = document.createElement("p");
+        p.style.cssText = "color:#ff8080;font-family:'DM Mono',monospace;font-size:13px;";
+        p.textContent = "Error: Python engine failed to load. Check your internet connection and refresh.";
+        outputEl.appendChild(p);
+        return;
+      }
+      if (isRunning) return;
+      isRunning = true;
+
+      outputEl.innerHTML = "";
+      pre = document.createElement("pre");
+      pre.style.cssText = "margin:0;padding:0;background:transparent;color:#d4d0c8;" +
+                          "font-family:'DM Mono',monospace;font-size:13px;" +
+                          "line-height:1.75;white-space:pre-wrap;word-break:break-word;";
+      outputEl.appendChild(pre);
+
+      setInputEnabled(false, "Waiting…");
+      runBtn.textContent = "● Running";
+      runBtn.classList.add("running");
+
+      Sk.configure({
+        output: txt => appendText(txt),
+        read: builtinRead,
+        __future__: Sk.python3,
+        inputfun: inputFun,
+        inputfunTakesPrompt: true,
+      });
+
+      Sk.misceval.asyncToPromise(
+        () => Sk.importMainWithBody("<stdin>", false, PYTHON_CODE, true)
+      ).then(() => {
+        appendSystem("— Game over. Press ▶ Run to play again. —");
+      }).catch(err => {
+        appendSystem("Error: " + (err.toString ? err.toString() : String(err)), "#ff8080");
+      }).finally(() => {
+        isRunning = false;
+        inputResolve = null;
+        setInputEnabled(false, "Press Run to start…");
+        runBtn.textContent = "▶ Run";
+        runBtn.classList.remove("running");
+      });
+    }
+  </script>
+
+</body>
+</html>
