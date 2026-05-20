@@ -259,13 +259,13 @@
     const PYTHON_CODE = `
 import random
 
-# Brought the original Unicode characters back
-WALL    = "█"
-PATH    = " "
-START   = "S"
-END     = "E"
-PLAYER  = "●"
-VISITED = "·"
+# Fixed: Using double letters so the JS regex doesn't target normal words
+WALL    = "▓▓"
+PATH    = "░░"
+START   = "SS"
+END     = "EE"
+PLAYER  = "00"
+VISITED = "▒▒"  # Changed this so it stands out from the path
 
 def generate_maze(rows, cols):
     height = rows * 2 + 1
@@ -322,10 +322,10 @@ def main():
     MOVES = {"w": (-1,0), "a": (0,-1), "s": (1,0), "d": (0,1)}
 
     while True:
-        # This tells our JS to wipe the screen, acting like stdscr.erase()
         print("___CLEAR___")
-        print("Playable Maze Generator")
-        print("S = start   E = exit   ● = you   · = visited")
+        print("PLAYABLE MAZE GENERATOR")
+        # Fixed: Updated the instructions to match the new markers
+        print("SS = start   EE = exit   00 = you ")
         print("Commands: w/a/s/d = move   r = reset   q = quit\\n")
         
         print(draw(grid, pos))
@@ -377,7 +377,6 @@ main()
 
     function appendText(txt) {
       if (pre) {
-        // 1. Intercept the clear command to stop infinite scrolling
         if (txt.includes("___CLEAR___")) {
           pre.innerHTML = "";
           txt = txt.replace(/___CLEAR___\n?/g, "");
@@ -385,16 +384,15 @@ main()
         
         if (!txt) return;
 
-        // 2. Escape standard HTML brackets so the prompt > doesn't break things
         let safeTxt = txt.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-        // 3. Inject colors mimicking the original curses setup
+        // Fixed: Regex now looks for specific double-letters/shapes to apply the CSS colors
         let coloredHtml = safeTxt
-            .replace(/█/g, '<span style="color: #4a90e2">█</span>')  // Blue walls
-            .replace(/●/g, '<span style="color: #ffbd2e">●</span>')  // Yellow player
-            .replace(/S/g, '<span style="color: #28c840">S</span>')  // Green start
-            .replace(/E/g, '<span style="color: #ff5f57">E</span>')  // Red end
-            .replace(/·/g, '<span style="color: #00ffff">·</span>'); // Cyan visited
+            .replace(/▓▓/g, '<span style="color: #4a90e2">▓▓</span>')  
+            .replace(/00/g, '<span style="color: #ffbd2e">00</span>')  
+            .replace(/SS/g, '<span style="color: #28c840">SS</span>')  
+            .replace(/EE/g, '<span style="color: #ff5f57">EE</span>')  
+            .replace(/▒▒/g, '<span style="color: #00ffff; opacity: 0.5">▒▒</span>'); 
 
         pre.innerHTML += coloredHtml;
         outputEl.scrollTop = outputEl.scrollHeight;
@@ -440,7 +438,7 @@ main()
       cb(val);
     }
 
-    inputEl.addEventListener("keydown", e => { if (e.key === "enter") submitInput(); });
+    inputEl.addEventListener("keydown", e => { if (e.key === "Enter") submitInput(); });
 
     function startGame() {
       if (typeof Sk === "undefined") {
@@ -453,7 +451,6 @@ main()
 
       outputEl.innerHTML = "";
       pre = document.createElement("pre");
-      // Added a line-height tweak here to make the maze grid look perfectly square
       pre.style.cssText = "margin:0;padding:0;background:transparent;color:#d4d0c8;" +
                           "font-family:'DM Mono',monospace;font-size:13px;" +
                           "line-height:1.2;white-space:pre;word-break:break-word;";
