@@ -1,0 +1,70 @@
+{
+  "Science": [
+    {
+      "question": "What is the chemical symbol for gold?",
+      "choices": ["Go", "Gd", "Au", "Ag"],
+      "answer": "Au"
+    },
+    {
+      "question": "How many bones are in the adult human body?",
+      "choices": ["186", "206", "226", "246"],
+      "answer": "206"
+    },
+    {
+      "question": "Which planet has the most moons?",
+      "choices": ["Jupiter", "Saturn", "Uranus", "Neptune"],
+      "answer": "Saturn"
+    }
+  ],
+  "History": [
+    {
+      "question": "In which year did World War II end?",
+      "choices": ["1943", "1944", "1945", "1946"],
+      "answer": "1945"
+    },
+    {
+      "question": "Who was the first person to walk on the Moon?",
+      "choices": ["Buzz Aldrin", "Neil Armstrong", "Yuri Gagarin", "John Glenn"],
+      "answer": "Neil Armstrong"
+    },
+    {
+      "question": "Which ancient wonder was located in Alexandria?",
+      "choices": ["Colossus of Rhodes", "Hanging Gardens", "Lighthouse of Alexandria", "Temple of Artemis"],
+      "answer": "Lighthouse of Alexandria"
+    }
+  ],
+  "Pop Culture": [
+    {
+      "question": "What is the name of the fictional kingdom in Frozen?",
+      "choices": ["Arendelle", "Agrabah", "Aldovia", "Aethermoor"],
+      "answer": "Arendelle"
+    },
+    {
+      "question": "Which band wrote 'Bohemian Rhapsody'?",
+      "choices": ["The Beatles", "Led Zeppelin", "Queen", "Pink Floyd"],
+      "answer": "Queen"
+    },
+    {
+      "question": "How many Harry Potter books are there?",
+      "choices": ["5", "6", "7", "8"],
+      "answer": "7"
+    }
+  ],
+  "Python": [
+    {
+      "question": "What keyword is used to define a function in Python?",
+      "choices": ["func", "def", "function", "define"],
+      "answer": "def"
+    },
+    {
+      "question": "What does len([1, 2, 3]) return?",
+      "choices": ["2", "3", "4", "Error"],
+      "answer": "3"
+    },
+    {
+      "question": "Which data type is mutable?",
+      "choices": ["tuple", "string", "list", "int"],
+      "answer": "list"
+    }
+  ]
+}
