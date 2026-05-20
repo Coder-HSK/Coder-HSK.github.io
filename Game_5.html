@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Hitendra — Blackjack</title>
+  <title>Hitendra — Maze Generator</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
   <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
@@ -36,6 +36,17 @@
       color: var(--ink-muted);
       background: var(--surface);
       letter-spacing: 0.04em;
+    }
+    .note-banner {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+      padding: 0.7rem 1rem;
+      border: 0.5px solid var(--border);
+      border-radius: 3px;
+      background: var(--surface);
+      margin-top: 1rem;
+      letter-spacing: 0.03em;
     }
     .back-link {
       font-family: var(--mono);
@@ -90,12 +101,12 @@
     .run-btn.running { color: #28c840; border-color: #28c840; }
     .terminal-output {
       padding: 1.4rem 1.6rem 0;
-      min-height: 300px;
-      max-height: 480px;
+      min-height: 340px;
+      max-height: 520px;
       overflow-y: auto;
       font-family: var(--mono);
       font-size: 13px;
-      line-height: 1.75;
+      line-height: 1.5;
       color: #d4d0c8;
     }
     .terminal-output::-webkit-scrollbar { width: 4px; }
@@ -187,16 +198,21 @@
 
     <div class="game-header">
       <div>
-        <p class="section-label">Game 05</p>
-        <h2>Blackjack</h2>
+        <p class="section-label">Game 04</p>
+        <h2>Maze Generator</h2>
         <div class="game-meta">
           <span class="meta-tag">Python</span>
-          <span class="meta-tag">Classes</span>
-          <span class="meta-tag">OOP</span>
-          <span class="meta-tag">__str__</span>
-          <span class="meta-tag">Lists as Stacks</span>
-          <span class="meta-tag">Ace Handling</span>
+          <span class="meta-tag">Recursive DFS</span>
+          <span class="meta-tag">2D Lists</span>
+          <span class="meta-tag">Sets</span>
+          <span class="meta-tag">Nested Functions</span>
+          <span class="meta-tag">Stack</span>
         </div>
+        <p class="note-banner">
+          ⚠ The original uses <code>curses</code> for real-time keys — browsers can't do that.
+          This version is turn-based: type w/a/s/d then Enter to move.
+          Same maze, same algorithm, just press Enter each step.
+        </p>
       </div>
       <a class="back-link" href="Project_2.html">← Back to Games</a>
     </div>
@@ -206,15 +222,15 @@
         <span class="dot dot-red"></span>
         <span class="dot dot-yellow"></span>
         <span class="dot dot-green"></span>
-        <span class="terminal-title">blackjack.py</span>
+        <span class="terminal-title">maze_generator.py</span>
         <button class="run-btn" id="run-btn" onclick="startGame()">▶ Run</button>
       </div>
       <div class="terminal-output" id="output">
-        <p style="color:rgba(255,255,255,0.3);font-family:'DM Mono',monospace;font-size:11px;margin:0;">// Press ▶ Run to start — you get $100 to start with</p>
+        <p style="color:rgba(255,255,255,0.3);font-family:'DM Mono',monospace;font-size:11px;margin:0;">// Press ▶ Run — find your way from S to E</p>
       </div>
       <div class="terminal-input-row">
         <span class="input-caret">›</span>
-        <input type="text" id="user-input" placeholder="Press Run to start…" disabled autocomplete="off" spellcheck="false"/>
+        <input type="text" id="user-input" placeholder="Press Run to start…" disabled autocomplete="off" spellcheck="false" maxlength="1"/>
         <button class="send-btn" id="send-btn" onclick="submitInput()" disabled>Enter ↵</button>
       </div>
     </div>
@@ -222,16 +238,15 @@
     <div class="concepts">
       <p class="section-label">Concepts practiced</p>
       <div class="concepts-grid">
-        <div class="concept-item"><strong>Classes</strong>Card, Deck, Hand</div>
-        <div class="concept-item"><strong>__str__</strong>custom print output</div>
-        <div class="concept-item"><strong>OOP</strong>encapsulated state</div>
-        <div class="concept-item"><strong>Lists as stacks</strong>.pop() for dealing</div>
-        <div class="concept-item"><strong>Ace logic</strong>11 → 1 when bust</div>
-        <div class="concept-item"><strong>Try/Except</strong>bet input validation</div>
+        <div class="concept-item"><strong>DFS</strong>iterative stack-based</div>
+        <div class="concept-item"><strong>2D Lists</strong>grid as list of lists</div>
+        <div class="concept-item"><strong>Sets</strong>O(1) visited lookup</div>
+        <div class="concept-item"><strong>Closures</strong>nested neighbors()</div>
+        <div class="concept-item"><strong>Tuples</strong>position as (r, c)</div>
+        <div class="concept-item"><strong>Game loop</strong>state + input + render</div>
       </div>
       <p class="section-label"></p>
-      <p class="section-label">I used classes and object-oriented programming for the first time, building a Card, a Deck, and a Hand that each knew how to do their own job. I learned how OOP lets you model real-world things in code, how to handle tricky logic like ace values that can change, and how to manage a proper betting system across multiple rounds. I am still missing a few rules, but I have the key idea of the game laid out. And finally got to experience the satisfaction of playing a casino card game that I built entirely from scratch.</p>
-
+      <p class="section-label"> I used 2D lists, recursion, and depth-first search to both generate a maze and then solve it automatically. I learned how algorithms can create something that looks almost artistic— a unique maze every single run— and how the same core idea (DFS) can be used to both build and navigate a structure. Like every other game, I had to debug this code as well because my coding experience with Skulpt is minimal, and I wasn't aware that Skulpt can't run curses, which was the basis of my maze’s design. However, I was able to get through this one using AI and free online resources like W3Schools; I used blue pixels in place of walls and dots identical to my original Python code’s output to portray crumbs and the player. Finally, I got to watch my program solve its own puzzle in real time, step by step, like it was actually thinking.</p>
     </div>
 
   </div>
@@ -244,164 +259,109 @@
     const PYTHON_CODE = `
 import random
 
+# Brought the original Unicode characters back
+WALL    = "█"
+PATH    = " "
+START   = "S"
+END     = "E"
+PLAYER  = "●"
+VISITED = "·"
 
-# Card class — one card, knows its rank, suit, and point value
-class Card:
-    SUITS  = ["S", "H", "D", "C"]  # spades hearts diamonds clubs — kept ASCII for Skulpt
-    RANKS  = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
-    VALUES = {"2":2,"3":3,"4":4,"5":5,"6":6,"7":7,"8":8,"9":9,
-              "10":10,"J":10,"Q":10,"K":10,"A":11}
+def generate_maze(rows, cols):
+    height = rows * 2 + 1
+    width  = cols * 2 + 1
+    grid = [[WALL] * width for _ in range(height)]
+    visited = set()
 
-    def __init__(self, rank, suit):
-        self.rank  = rank
-        self.suit  = suit
-        self.value = Card.VALUES[rank]  # look up the value from the class-level dict
+    def neighbors(r, c):
+        dirs = [(0,1),(0,-1),(1,0),(-1,0)]
+        random.shuffle(dirs)
+        result = []
+        for dr, dc in dirs:
+            nr, nc = r + dr, c + dc
+            if 0 <= nr < rows and 0 <= nc < cols and (nr, nc) not in visited:
+                result.append((nr, nc, dr, dc))
+        return result
 
-    # __str__ is what Python calls when you do print(card) or str(card)
-    def __str__(self):
-        return self.rank + self.suit
+    visited.add((0, 0))
+    grid[1][1] = PATH
+    stack = [(0, 0)]
 
-
-# Deck class — 52 cards, shuffled on creation
-class Deck:
-    def __init__(self):
-        # nested list comprehension — every rank for every suit
-        self.cards = [Card(rank, suit)
-                      for suit in Card.SUITS
-                      for rank in Card.RANKS]
-        random.shuffle(self.cards)
-
-    def deal(self):
-        # pop() removes from the end — O(1) and works like a real deck
-        return self.cards.pop()
-
-
-# Hand class — tracks a player's or dealer's cards and calculates total
-class Hand:
-    def __init__(self):
-        self.cards = []
-
-    def add_card(self, card):
-        self.cards.append(card)
-
-    def total(self):
-        # aces start at 11 — flip them to 1 one at a time if we bust
-        total = sum(c.value for c in self.cards)
-        aces  = sum(1 for c in self.cards if c.rank == "A")
-        while total > 21 and aces:
-            total -= 10   # one ace goes from 11 to 1
-            aces  -= 1
-        return total
-
-    def is_bust(self):
-        return self.total() > 21
-
-    def is_blackjack(self):
-        return len(self.cards) == 2 and self.total() == 21
-
-    def show(self, hide_second=False):
-        # hide_second=True for the dealer's face-down card
-        if hide_second:
-            return "[" + str(self.cards[0]) + "] [??]"
-        return "  ".join(str(c) for c in self.cards) + "  (total: " + str(self.total()) + ")"
-
-
-# one full round of blackjack — takes the deck and current bankroll, returns new bankroll
-def play_round(deck, bankroll):
-
-    # get a valid bet from the player
-    print("\\n[Bank] Bankroll: $" + str(bankroll))
-    while True:
-        try:
-            bet = int(input("  Place your bet: $"))
-            if 1 <= bet <= bankroll:
-                break
-            print("  [!] Bet must be between $1 and $" + str(bankroll) + ".")
-        except ValueError:
-            print("  [!] Enter a whole number.")
-
-    # deal 2 cards each — player, dealer, player, dealer
-    player = Hand()
-    dealer = Hand()
-    for _ in range(2):
-        player.add_card(deck.deal())
-        dealer.add_card(deck.deal())
-
-    # show initial hands — dealer hides second card
-    print("\\n  Dealer: " + dealer.show(True))
-    print("  You:    " + player.show())
-
-    # instant blackjack check before anything else
-    if player.is_blackjack():
-        print("\\n  [BJ] Blackjack!")
-        if dealer.is_blackjack():
-            print("  Dealer also has Blackjack. Push (tie).")
-            return bankroll
-        winnings = int(bet * 1.5)  # blackjack pays 3:2
-        print("  You win $" + str(winnings) + "!")
-        return bankroll + winnings
-
-    # player's turn — hit until they stand or bust
-    while True:
-        action = input("\\n  Hit (h) or Stand (s)? ").strip().lower()
-        if action == "h":
-            player.add_card(deck.deal())
-            print("  You:    " + player.show())
-            if player.is_bust():
-                print("  [bust] You went over 21. You lose.")
-                return bankroll - bet
-        elif action == "s":
-            break
+    while stack:
+        r, c = stack[-1]
+        nbs = neighbors(r, c)
+        if nbs:
+            nr, nc, dr, dc = nbs[0]
+            visited.add((nr, nc))
+            grid[nr*2+1][nc*2+1] = PATH
+            grid[r*2+1+dr][c*2+1+dc] = PATH
+            stack.append((nr, nc))
         else:
-            print("  [!] Enter 'h' or 's'.")
+            stack.pop()
 
-    # dealer's turn — house must hit until 17+
-    print("\\n  Dealer reveals: " + dealer.show())
-    while dealer.total() < 17:
-        dealer.add_card(deck.deal())
-        print("  Dealer hits:    " + dealer.show())
+    grid[1][1]               = START
+    grid[height-2][width-2]  = END
+    return grid
 
-    p_total = player.total()
-    d_total = dealer.total()
-
-    # figure out who won
-    if dealer.is_bust():
-        print("\\n  Dealer busts! You win $" + str(bet) + "!")
-        return bankroll + bet
-    elif p_total > d_total:
-        print("\\n  You win $" + str(bet) + "!  (" + str(p_total) + " vs " + str(d_total) + ")")
-        return bankroll + bet
-    elif p_total < d_total:
-        print("\\n  Dealer wins.  (" + str(p_total) + " vs " + str(d_total) + ")")
-        return bankroll - bet
-    else:
-        print("\\n  Push -- it's a tie. (" + str(p_total) + " vs " + str(d_total) + ")")
-        return bankroll
-
+def draw(grid, pos):
+    pr, pc = pos
+    lines = []
+    for r, row in enumerate(grid):
+        line = ""
+        for c, cell in enumerate(row):
+            line += PLAYER if (r == pr and c == pc) else cell
+        lines.append(line)
+    return "\\n".join(lines)
 
 def main():
-    print("BLACKJACK  (Beat the dealer to 21!)")
-    bankroll = 100  # start with $100
-    deck = Deck()
+    rows, cols = 8, 12 
+    grid  = generate_maze(rows, cols)
+    pos   = (1, 1)
+    moves = 0
+    won   = False
+    MOVES = {"w": (-1,0), "a": (0,-1), "s": (1,0), "d": (0,1)}
 
-    while bankroll > 0:
-        # reshuffle when the deck gets low — keeps the game fair
-        if len(deck.cards) < 15:
-            print("\\n  [~] Shuffling a new deck...")
-            deck = Deck()
+    while True:
+        # This tells our JS to wipe the screen, acting like stdscr.erase()
+        print("___CLEAR___")
+        print("Playable Maze Generator")
+        print("S = start   E = exit   ● = you   · = visited")
+        print("Commands: w/a/s/d = move   r = reset   q = quit\\n")
+        
+        print(draw(grid, pos))
+        print("\\nMoves: " + str(moves))
 
-        bankroll = play_round(deck, bankroll)
+        if won:
+            print("\\n[WIN] You found the exit! Press r for a new maze.")
 
-        if bankroll <= 0:
-            print("\\n[broke] You're out of money. Game over.")
+        cmd = input("\\n> ").strip().lower()
+
+        if cmd == "q":
+            print("Thanks for playing!")
             break
+        if cmd == "r":
+            grid  = generate_maze(rows, cols)
+            pos   = (1, 1)
+            moves = 0
+            won   = False
+            continue
 
-        again = input("\\nPlay another round? (y/n): ").strip().lower()
-        if again != "y":
-            break
+        if won:
+            continue 
 
-    print("\\nYou finished with $" + str(bankroll) + ". Thanks for playing!")
-
+        if cmd in MOVES:
+            dr, dc = MOVES[cmd]
+            nr, nc = pos[0] + dr, pos[1] + dc
+            if 0 <= nr < len(grid) and 0 <= nc < len(grid[0]) and grid[nr][nc] != WALL:
+                r, c = pos
+                if grid[r][c] not in (START, END):
+                    grid[r][c] = VISITED 
+                pos    = (nr, nc)
+                moves += 1
+                if grid[nr][nc] == END:
+                    won = True
+        else:
+            print("[!] Invalid move.")
 
 main()
 `;
@@ -417,7 +377,26 @@ main()
 
     function appendText(txt) {
       if (pre) {
-        pre.textContent += txt;
+        // 1. Intercept the clear command to stop infinite scrolling
+        if (txt.includes("___CLEAR___")) {
+          pre.innerHTML = "";
+          txt = txt.replace(/___CLEAR___\n?/g, "");
+        }
+        
+        if (!txt) return;
+
+        // 2. Escape standard HTML brackets so the prompt > doesn't break things
+        let safeTxt = txt.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        // 3. Inject colors mimicking the original curses setup
+        let coloredHtml = safeTxt
+            .replace(/█/g, '<span style="color: #4a90e2">█</span>')  // Blue walls
+            .replace(/●/g, '<span style="color: #ffbd2e">●</span>')  // Yellow player
+            .replace(/S/g, '<span style="color: #28c840">S</span>')  // Green start
+            .replace(/E/g, '<span style="color: #ff5f57">E</span>')  // Red end
+            .replace(/·/g, '<span style="color: #00ffff">·</span>'); // Cyan visited
+
+        pre.innerHTML += coloredHtml;
         outputEl.scrollTop = outputEl.scrollHeight;
       }
     }
@@ -446,7 +425,7 @@ main()
 
     function inputFun(prompt) {
       if (prompt) appendText(prompt);
-      setInputEnabled(true, "Type your answer and press Enter…");
+      setInputEnabled(true, "w / a / s / d then enter…");
       return new Promise(resolve => { inputResolve = resolve; });
     }
 
@@ -461,7 +440,7 @@ main()
       cb(val);
     }
 
-    inputEl.addEventListener("keydown", e => { if (e.key === "Enter") submitInput(); });
+    inputEl.addEventListener("keydown", e => { if (e.key === "enter") submitInput(); });
 
     function startGame() {
       if (typeof Sk === "undefined") {
@@ -474,9 +453,10 @@ main()
 
       outputEl.innerHTML = "";
       pre = document.createElement("pre");
+      // Added a line-height tweak here to make the maze grid look perfectly square
       pre.style.cssText = "margin:0;padding:0;background:transparent;color:#d4d0c8;" +
                           "font-family:'DM Mono',monospace;font-size:13px;" +
-                          "line-height:1.75;white-space:pre-wrap;word-break:break-word;";
+                          "line-height:1.2;white-space:pre;word-break:break-word;";
       outputEl.appendChild(pre);
 
       setInputEnabled(false, "Waiting…");

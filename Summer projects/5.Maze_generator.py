@@ -24,27 +24,25 @@ SOLUTION = "★"
 
 
 def clear():
-    """Clear the terminal screen."""
+    #Clear the terminal screen.
     os.system("cls" if os.name == "nt" else "clear")
 
 
 # ── Maze Generation (Recursive Backtracking) ───────────────────────────────────
 
 def generate_maze(rows, cols):
-    """
-    Create a 2D grid filled with walls, then carve out passages using
-    recursive backtracking depth-first search.
+   # Create a 2D grid filled with walls, then carve out passages using
+   # recursive backtracking depth-first search.
 
-    Grid layout: every cell (r, c) in our logical grid maps to
-    position (r*2+1, c*2+1) in the display grid, giving room for walls.
-    """
+   # Grid layout: every cell (r, c) in our logical grid maps to
+   # position (r*2+1, c*2+1) in the display grid, giving room for walls.
     # Display grid: all walls to start
     height = rows * 2 + 1
     width  = cols * 2 + 1
     grid = [[WALL] * width for _ in range(height)]
 
     def carve(r, c):
-        """Recursively carve passages from cell (r, c)."""
+        #Recursively carve passages from cell (r, c).
         # Mark this logical cell as open
         grid[r * 2 + 1][c * 2 + 1] = PATH
 
