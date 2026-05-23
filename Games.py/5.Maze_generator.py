@@ -70,7 +70,7 @@ def generate_maze(rows, cols):
 
 
 def print_maze(grid, color=True):
-    #Render the maze to the terminal.
+    """Render the maze to the terminal."""
     colors = {
         WALL:     "\033[34m",   # blue walls
         PATH:     "\033[0m",    # default
@@ -94,9 +94,10 @@ def print_maze(grid, color=True):
 # ── Maze Solving (Iterative DFS) ───────────────────────────────────────────────
 
 def solve_maze(grid, animate=True):
-    #Find the path from S to E using iterative depth-first search.
-    #Returns the list of cells in the solution path.
-    
+    """
+    Find the path from S to E using iterative depth-first search.
+    Returns the list of cells in the solution path.
+    """
     rows = len(grid)
     cols = len(grid[0])
 
@@ -141,7 +142,7 @@ def solve_maze(grid, animate=True):
 
 
 def mark_solution(grid, path):
-    #Highlight the solution path with stars.
+    """Highlight the solution path with stars."""
     for r, c in path:
         if grid[r][c] not in (START, END):
             grid[r][c] = SOLUTION
