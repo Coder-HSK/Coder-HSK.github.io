@@ -50,7 +50,7 @@
       <li><a href="../index.html#projects">Projects</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
       <li><a href="../Résumé.html">Resume</a></li>
-      <li><a href="../Project_2.html">Games</a></li>
+      <li><a href="../Project_2.html" class="active">Games</a></li>
     </ul>
   </nav>
 
@@ -75,7 +75,7 @@
       <span class="pygame-banner-icon">pygame</span>
       <div class="pygame-banner-text">
         <h3>This game runs as a desktop app</h3>
-        <p>Space Invaders uses <code>pygame.sprite</code> groups, real-time rendering at 60fps, and keyboard polling — none of which exist in a browser environment. Run it locally for the full experience with moving aliens, shields, and progressive levels.</p>
+        <p>Space Invaders uses <code>pygame.sprite</code> groups, real-time rendering at 60fps, and keyboard polling — none of which exist in a browser environment. Run it locally for the full experience with moving aliens, destructible shields, and progressive levels.</p>
       </div>
     </div>
 
@@ -92,107 +92,39 @@
     <div class="code-wrap">
       <div class="code-bar">
         <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
-        <span class="code-title">space_invaders.py — source code</span>
+        <span class="code-title">space_invaders.py — collision logic</span>
         <a href="https://github.com/Coder-HSK" target="_blank" style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;padding:4px 10px;border:0.5px solid rgba(255,255,255,0.12);border-radius:2px;transition:all 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">GitHub ↗</a>
       </div>
       <div class="code-lines"><span class="cm">"""
 PROJECT 8: Space Invaders Clone
 =================================
-Concepts: pygame sprites, sprite groups, collision detection,
-          enemy movement patterns, shooting mechanics, game states
+Highlight: Using Pygame's groupcollide to manage complex intersections
+between player bullets, enemy bullets, and destructible shields.
 """</span>
 
-<span class="kw">import</span> pygame
-<span class="kw">import</span> random, sys
-
-WIDTH, HEIGHT = <span class="nm">800</span>, <span class="nm">600</span>
-FPS           = <span class="nm">60</span>
-
-<span class="kw">class</span> <span class="fn">Player</span>(pygame.sprite.Sprite):
-    <span class="kw">def</span> <span class="fn">__init__</span>(self):
-        super().__init__()
-        self.image = pygame.Surface((<span class="nm">40</span>, <span class="nm">30</span>), pygame.SRCALPHA)
-        pygame.draw.polygon(self.image, CYAN, [(<span class="nm">20</span>,<span class="nm">0</span>),(<span class="nm">0</span>,<span class="nm">28</span>),(<span class="nm">40</span>,<span class="nm">28</span>)])
-        self.rect  = self.image.get_rect(midbottom=(WIDTH//<span class="nm">2</span>, HEIGHT-<span class="nm">20</span>))
-        self.last_shot = <span class="nm">0</span>
-
-    <span class="kw">def</span> <span class="fn">update</span>(self, keys):
-        <span class="kw">if</span> keys[pygame.K_LEFT]  <span class="kw">and</span> self.rect.left  > <span class="nm">0</span>:     self.rect.x -= PLAYER_SPEED
-        <span class="kw">if</span> keys[pygame.K_RIGHT] <span class="kw">and</span> self.rect.right &lt; WIDTH: self.rect.x += PLAYER_SPEED
-
-    <span class="kw">def</span> <span class="fn">shoot</span>(self):
-        self.last_shot = pygame.time.get_ticks()
-        <span class="kw">return</span> Bullet(self.rect.centerx, self.rect.top, -BULLET_SPEED, YELLOW)
-
-
-<span class="kw">class</span> <span class="fn">Enemy</span>(pygame.sprite.Sprite):
-    COLORS = [RED, (<span class="nm">200</span>,<span class="nm">80</span>,<span class="nm">200</span>), GREEN, CYAN]
-
-    <span class="kw">def</span> <span class="fn">__init__</span>(self, col, row):
-        super().__init__()
-        color = Enemy.COLORS[row % len(Enemy.COLORS)]
-        self.image = pygame.Surface((<span class="nm">36</span>, <span class="nm">26</span>), pygame.SRCALPHA)
-        pygame.draw.ellipse(self.image, color, (<span class="nm">4</span>,<span class="nm">8</span>,<span class="nm">28</span>,<span class="nm">16</span>))
-        self.rect   = self.image.get_rect()
-        self.points = (ENEMY_ROWS - row) * <span class="nm">10</span>   <span class="cm"># top rows worth more</span>
-
-
-<span class="kw">class</span> <span class="fn">Bullet</span>(pygame.sprite.Sprite):
-    <span class="kw">def</span> <span class="fn">update</span>(self):
-        self.rect.y += self.speed
-        <span class="kw">if</span> self.rect.bottom &lt; <span class="nm">0</span> <span class="kw">or</span> self.rect.top > HEIGHT:
-            self.kill()   <span class="cm"># remove from all sprite groups</span>
-
-
-<span class="kw">class</span> <span class="fn">Shield</span>(pygame.sprite.Sprite):
-    <span class="kw">def</span> <span class="fn">hit</span>(self):
-        self.hits -= <span class="nm">1</span>
-        self.image.set_alpha(int(<span class="nm">255</span> * self.hits / <span class="nm">3</span>))
-        <span class="kw">if</span> self.hits &lt;= <span class="nm">0</span>: self.kill()
-
-
-<span class="kw">class</span> <span class="fn">Game</span>:
-    <span class="kw">def</span> <span class="fn">reset</span>(self):
-        self.score = <span class="nm">0</span>; self.lives = <span class="nm">3</span>; self.level = <span class="nm">1</span>
-        self.all_sprites    = pygame.sprite.Group()
-        self.enemies        = pygame.sprite.Group()
-        self.player_bullets = pygame.sprite.Group()
-        self.enemy_bullets  = pygame.sprite.Group()
-        self.shields        = pygame.sprite.Group()
-
     <span class="kw">def</span> <span class="fn">handle_collisions</span>(self):
-        <span class="cm"># player bullets vs enemies</span>
+        <span class="cm"># Player bullets vs enemies</span>
         hits = pygame.sprite.groupcollide(
             self.enemies, self.player_bullets, <span class="kw">True</span>, <span class="kw">True</span>)
         <span class="kw">for</span> enemy <span class="kw">in</span> hits:
             self.score += enemy.points
-        <span class="cm"># enemy bullets vs player</span>
+
+        <span class="cm"># Enemy bullets vs player</span>
         <span class="kw">if</span> pygame.sprite.spritecollide(self.player, self.enemy_bullets, <span class="kw">True</span>):
             self.lives -= <span class="nm">1</span>
-            <span class="kw">if</span> self.lives &lt;= <span class="nm">0</span>: self.game_over = <span class="kw">True</span>
+            <span class="kw">if</span> self.lives &lt;= <span class="nm">0</span>:
+                self.game_over = <span class="kw">True</span>
 
-    <span class="kw">def</span> <span class="fn">run</span>(self):
-        <span class="kw">while True</span>:
-            <span class="kw">for</span> event <span class="kw">in</span> pygame.event.get():
-                <span class="kw">if</span> event.type == pygame.QUIT:
-                    pygame.quit(); sys.exit()
-            <span class="kw">if not</span> self.game_over:
-                keys = pygame.key.get_pressed()
-                self.player.update(keys)
-                <span class="kw">if</span> keys[pygame.K_SPACE] <span class="kw">and</span> self.player.can_shoot():
-                    b = self.player.shoot()
-                    self.player_bullets.add(b)
-                self.handle_collisions()
-                <span class="kw">if not</span> self.enemies:
-                    self.level += <span class="nm">1</span>
-                    self.spawn_enemies()
-            self.screen.fill(BLACK)
-            self.all_sprites.draw(self.screen)
-            pygame.display.flip()
-            self.clock.tick(FPS)
+        <span class="cm"># Bullets vs destructible shields</span>
+        p_shield_hits = pygame.sprite.groupcollide(
+            self.shields, self.player_bullets, <span class="kw">False</span>, <span class="kw">True</span>)
+        <span class="kw">for</span> shield <span class="kw">in</span> p_shield_hits:
+            shield.hit()
 
-<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
-    Game().run()</div>
+        e_shield_hits = pygame.sprite.groupcollide(
+            self.shields, self.enemy_bullets, <span class="kw">False</span>, <span class="kw">True</span>)
+        <span class="kw">for</span> shield <span class="kw">in</span> e_shield_hits:
+            shield.hit()</div>
     </div>
 
     <div class="concepts">

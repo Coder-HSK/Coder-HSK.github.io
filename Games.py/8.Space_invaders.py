@@ -135,7 +135,6 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("👾 Space Invaders")
-        self.clock  = pygame.font.SysFont("monospace", 20, bold=True)
         self.font   = pygame.font.SysFont("monospace", 20, bold=True)
         self.big    = pygame.font.SysFont("monospace", 42, bold=True)
         self.clock  = pygame.time.Clock()
@@ -232,11 +231,16 @@ class Game:
             if self.lives <= 0:
                 self.game_over = True
 
-        # Bullets vs shields
-        pygame.sprite.groupcollide(self.shields, self.player_bullets, False, True,
-            collided=lambda s, b: (s.hit(), True)[1])
-        pygame.sprite.groupcollide(self.shields, self.enemy_bullets, False, True,
-            collided=lambda s, b: (s.hit(), True)[1])
+        # Bullets vs destructible shields (FIXED)
+        p_shield_hits = pygame.sprite.groupcollide(
+            self.shields, self.player_bullets, False, True)
+        for shield in p_shield_hits:
+            shield.hit()
+
+        e_shield_hits = pygame.sprite.groupcollide(
+            self.shields, self.enemy_bullets, False, True)
+        for shield in e_shield_hits:
+            shield.hit()
 
         # Enemies reached the bottom → game over
         for e in self.enemies:
@@ -244,10 +248,9 @@ class Game:
                 self.game_over = True
 
     def draw_hud(self):
-        font = pygame.font.SysFont("monospace", 20, bold=True)
-        score_txt = font.render(f"Score: {self.score}", True, WHITE)
-        lives_txt = font.render(f"Lives: {'❤ ' * self.lives}", True, RED)
-        level_txt = font.render(f"Level: {self.level}", True, CYAN)
+        score_txt = self.font.render(f"Score: {self.score}", True, WHITE)
+        lives_txt = self.font.render(f"Lives: {'❤ ' * self.lives}", True, RED)
+        level_txt = self.font.render(f"Level: {self.level}", True, CYAN)
         self.screen.blit(score_txt, (10, 8))
         self.screen.blit(lives_txt, (WIDTH // 2 - 60, 8))
         self.screen.blit(level_txt, (WIDTH - 110, 8))
@@ -293,10 +296,8 @@ class Game:
             self.draw_hud()
 
             if self.game_over:
-                big = pygame.font.SysFont("monospace", 42, bold=True)
-                small = pygame.font.SysFont("monospace", 22, bold=True)
-                msg  = big.render("GAME OVER", True, RED)
-                msg2 = small.render(f"Final Score: {self.score}   R = restart", True, WHITE)
+                msg  = self.big.render("GAME OVER", True, RED)
+                msg2 = self.font.render(f"Final Score: {self.score}   R = restart", True, WHITE)
                 self.screen.blit(msg,  (WIDTH//2 - msg.get_width()//2,  HEIGHT//2 - 40))
                 self.screen.blit(msg2, (WIDTH//2 - msg2.get_width()//2, HEIGHT//2 + 20))
 
