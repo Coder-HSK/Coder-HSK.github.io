@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hitendra — Snake</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <style>
+    .nav-links { align-items: center; }
+    .page { max-width: 900px; margin: 0 auto; padding: 9rem 3rem 6rem; animation: fadeUp 0.9s ease both; }
+    .game-header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 3rem; border-bottom: 0.5px solid var(--border); margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap; }
+    .game-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+    .meta-tag { font-family: var(--mono); font-size: 10px; padding: 3px 9px; border: 0.5px solid var(--border); border-radius: 2px; color: var(--ink-muted); background: var(--surface); letter-spacing: 0.04em; }
+    .back-link { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--ink); }
+
+    .pygame-banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.2rem;
+      padding: 1.4rem 1.6rem;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      background: var(--surface);
+      margin-bottom: 2.5rem;
+    }
+    .pygame-banner-icon {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      padding: 4px 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .pygame-banner-text h3 {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      margin-bottom: 0.4rem;
+    }
+    .pygame-banner-text p {
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+    .pygame-banner-text code {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    .how-to-run {
+      margin-bottom: 2.5rem;
+      padding: 1.6rem;
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+    }
+    .how-to-run h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 1rem; }
+    .steps { display: flex; flex-direction: column; gap: 0.6rem; }
+    .step { display: flex; gap: 1rem; align-items: flex-start; }
+    .step-num { font-family: var(--mono); font-size: 10px; color: var(--ink-muted); background: var(--surface); border: 0.5px solid var(--border); padding: 2px 7px; border-radius: 2px; flex-shrink: 0; margin-top: 1px; }
+    .step-text { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+    .step-text code { font-family: var(--mono); font-size: 11px; background: var(--surface); border: 0.5px solid var(--border); padding: 2px 6px; border-radius: 2px; color: var(--ink); }
+
+    /* code viewer */
+    .code-wrap { border: 0.5px solid var(--border); border-radius: 6px; overflow: hidden; background: #141412; }
+    .code-bar { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1.2rem; background: #1e1d1a; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f57; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #28c840; }
+    .code-title { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; margin-left: 0.4rem; }
+    .code-lines { padding: 1.4rem 1.6rem; max-height: 440px; overflow-y: auto; font-family: var(--mono); font-size: 12px; line-height: 1.7; color: #d4d0c8; white-space: pre; }
+    .code-lines::-webkit-scrollbar { width: 4px; }
+    .code-lines::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .kw { color: #c792ea; }
+    .cm { color: #546e7a; font-style: italic; }
+    .st { color: #c3e88d; }
+    .fn { color: #82aaff; }
+    .nm { color: #f78c6c; }
+
+    .concepts { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 0.5px solid var(--border); }
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 1.5rem; }
+    .concept-item { background: var(--bg); padding: 1rem 1.2rem; font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.04em; }
+    .concept-item strong { display: block; font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.2rem; }
+    @media (max-width: 640px) { .page { padding: 7rem 1.5rem 4rem; } .game-header { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="../index.html">Hitendra</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a href="../Résumé.html">Resume</a></li>
+      <li><a href="../Project_2.html">Games</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="game-header">
+      <div>
+        <p class="section-label">Game 07</p>
+        <h2>Snake</h2>
+        <div class="game-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">pygame</span>
+          <span class="meta-tag">deque</span>
+          <span class="meta-tag">Game Loop</span>
+          <span class="meta-tag">Collision Detection</span>
+          <span class="meta-tag">Grid Movement</span>
+        </div>
+      </div>
+      <a class="back-link" href="../Project_2.html">← Back to Games</a>
+    </div>
+
+    <div class="pygame-banner">
+      <span class="pygame-banner-icon">pygame</span>
+      <div class="pygame-banner-text">
+        <h3>This game runs as a desktop app</h3>
+        <p>Snake uses <code>pygame</code> for a real-time graphics window with arrow key controls. Browsers can't run pygame — there's no way to port the experience without rewriting it in a different language. Run it locally to play the full version.</p>
+      </div>
+    </div>
+
+    <div class="how-to-run">
+      <h3>How to run it locally</h3>
+      <div class="steps">
+        <div class="step"><span class="step-num">01</span><span class="step-text">Install pygame: <code>pip install pygame</code></span></div>
+        <div class="step"><span class="step-num">02</span><span class="step-text">Download <code>snake.py</code> from the GitHub repo below</span></div>
+        <div class="step"><span class="step-num">03</span><span class="step-text">Run it: <code>python snake.py</code></span></div>
+        <div class="step"><span class="step-num">04</span><span class="step-text">Use <code>arrow keys</code> to move — eat food, don't hit walls or yourself</span></div>
+      </div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+        <span class="code-title">snake.py — source code</span>
+        <a href="https://github.com/Coder-HSK" target="_blank" style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;padding:4px 10px;border:0.5px solid rgba(255,255,255,0.12);border-radius:2px;transition:all 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">GitHub ↗</a>
+      </div>
+      <div class="code-lines"><span class="cm">"""
+PROJECT 7: Snake
+=================
+Concepts: pygame game loop, event handling, grid-based movement,
+          deque (efficient queue), collision detection, rendering
+"""</span>
+
+<span class="kw">import</span> pygame
+<span class="kw">import</span> random
+<span class="kw">from</span> collections <span class="kw">import</span> deque
+
+<span class="cm"># Config</span>
+CELL   = <span class="nm">20</span>
+COLS   = <span class="nm">30</span>
+ROWS   = <span class="nm">25</span>
+WIDTH  = COLS * CELL
+HEIGHT = ROWS * CELL
+FPS    = <span class="nm">10</span>
+
+<span class="cm"># Colors (R, G, B)</span>
+BLACK      = (<span class="nm">10,  10,  10</span>)
+GREEN      = (<span class="nm">80, 200,  80</span>)
+DARK_GREEN = (<span class="nm">40, 140,  40</span>)
+RED        = (<span class="nm">220,  60,  60</span>)
+WHITE      = (<span class="nm">240, 240, 240</span>)
+
+UP    = (<span class="nm">0</span>, <span class="nm">-1</span>)
+DOWN  = (<span class="nm">0</span>,  <span class="nm">1</span>)
+LEFT  = (<span class="nm">-1</span>, <span class="nm">0</span>)
+RIGHT = (<span class="nm">1</span>,  <span class="nm">0</span>)
+
+<span class="kw">def</span> <span class="fn">draw_cell</span>(surface, col, row, color, shrink=<span class="nm">2</span>):
+    rect = pygame.Rect(col * CELL + shrink, row * CELL + shrink,
+                       CELL - shrink * <span class="nm">2</span>, CELL - shrink * <span class="nm">2</span>)
+    pygame.draw.rect(surface, color, rect, border_radius=<span class="nm">4</span>)
+
+<span class="kw">def</span> <span class="fn">main</span>():
+    pygame.init()
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    clock  = pygame.time.Clock()
+
+    <span class="kw">def</span> <span class="fn">new_game</span>():
+        start     = (COLS // <span class="nm">2</span>, ROWS // <span class="nm">2</span>)
+        snake     = deque([start, (start[<span class="nm">0</span>]-<span class="nm">1</span>, start[<span class="nm">1</span>]), (start[<span class="nm">0</span>]-<span class="nm">2</span>, start[<span class="nm">1</span>])])
+        direction = RIGHT
+        food      = spawn_food(snake)
+        <span class="kw">return</span> snake, direction, food, <span class="nm">0</span>
+
+    <span class="kw">def</span> <span class="fn">spawn_food</span>(snake):
+        snake_set = set(snake)
+        <span class="kw">while True</span>:
+            pos = (random.randint(<span class="nm">0</span>, COLS-<span class="nm">1</span>), random.randint(<span class="nm">0</span>, ROWS-<span class="nm">1</span>))
+            <span class="kw">if</span> pos <span class="kw">not in</span> snake_set:
+                <span class="kw">return</span> pos
+
+    snake, direction, food, score = new_game()
+    game_over   = <span class="kw">False</span>
+    pending_dir = direction
+
+    <span class="kw">while True</span>:
+        <span class="kw">for</span> event <span class="kw">in</span> pygame.event.get():
+            <span class="kw">if</span> event.type == pygame.QUIT:
+                pygame.quit(); <span class="kw">return</span>
+            <span class="kw">if</span> event.type == pygame.KEYDOWN:
+                <span class="cm"># prevent reversing into yourself</span>
+                <span class="kw">if</span> event.key == pygame.K_UP    <span class="kw">and</span> direction != DOWN:  pending_dir = UP
+                <span class="kw">elif</span> event.key == pygame.K_DOWN  <span class="kw">and</span> direction != UP:    pending_dir = DOWN
+                <span class="kw">elif</span> event.key == pygame.K_LEFT  <span class="kw">and</span> direction != RIGHT: pending_dir = LEFT
+                <span class="kw">elif</span> event.key == pygame.K_RIGHT <span class="kw">and</span> direction != LEFT:  pending_dir = RIGHT
+
+        <span class="kw">if not</span> game_over:
+            direction = pending_dir
+            head      = snake[<span class="nm">0</span>]
+            new_head  = (head[<span class="nm">0</span>] + direction[<span class="nm">0</span>], head[<span class="nm">1</span>] + direction[<span class="nm">1</span>])
+            hit_wall  = <span class="kw">not</span> (<span class="nm">0</span> &lt;= new_head[<span class="nm">0</span>] &lt; COLS <span class="kw">and</span> <span class="nm">0</span> &lt;= new_head[<span class="nm">1</span>] &lt; ROWS)
+            hit_self  = new_head <span class="kw">in</span> set(snake)
+
+            <span class="kw">if</span> hit_wall <span class="kw">or</span> hit_self:
+                game_over = <span class="kw">True</span>
+            <span class="kw">else</span>:
+                snake.appendleft(new_head)
+                <span class="kw">if</span> new_head == food:
+                    score += <span class="nm">1</span>
+                    food   = spawn_food(snake)
+                <span class="kw">else</span>:
+                    snake.pop()   <span class="cm"># remove tail — normal move</span>
+
+        screen.fill(BLACK)
+        draw_cell(screen, food[<span class="nm">0</span>], food[<span class="nm">1</span>], RED, shrink=<span class="nm">3</span>)
+        <span class="kw">for</span> i, (col, row) <span class="kw">in</span> enumerate(snake):
+            draw_cell(screen, col, row, GREEN <span class="kw">if</span> i > <span class="nm">0</span> <span class="kw">else</span> DARK_GREEN)
+        pygame.display.flip()
+        clock.tick(FPS)
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    main()</div>
+    </div>
+
+    <div class="concepts">
+      <p class="section-label">Concepts practiced</p>
+      <div class="concepts-grid">
+        <div class="concept-item"><strong>pygame</strong>game loop + events</div>
+        <div class="concept-item"><strong>deque</strong>O(1) head/tail ops</div>
+        <div class="concept-item"><strong>Collision</strong>wall + self check</div>
+        <div class="concept-item"><strong>Grid</strong>pixel ↔ cell mapping</div>
+        <div class="concept-item"><strong>Sets</strong>fast food spawn check</div>
+        <div class="concept-item"><strong>Closures</strong>new_game, spawn_food</div>
+      </div>
+    </div>
+  </div>
+
+  <footer><p>Designed &amp; built by Hitendra Annavarapu — 2026</p></footer>
+</body>
+</html>

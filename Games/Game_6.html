@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hitendra — Trivia Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+  <style>
+    .nav-links { align-items: center; }
+    .page { max-width: 900px; margin: 0 auto; padding: 9rem 3rem 6rem; animation: fadeUp 0.9s ease both; }
+    .game-header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 3rem; border-bottom: 0.5px solid var(--border); margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap; }
+    .game-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+    .meta-tag { font-family: var(--mono); font-size: 10px; padding: 3px 9px; border: 0.5px solid var(--border); border-radius: 2px; color: var(--ink-muted); background: var(--surface); letter-spacing: 0.04em; }
+    .back-link { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--ink); }
+    .terminal-wrap { border: 0.5px solid var(--border); border-radius: 6px; overflow: hidden; background: #141412; }
+    .terminal-bar { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1.2rem; background: #1e1d1a; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f57; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #28c840; }
+    .terminal-title { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; margin-left: 0.4rem; }
+    .run-btn { margin-left: auto; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 3px; border: 0.5px solid rgba(255,255,255,0.15); background: transparent; color: rgba(255,255,255,0.5); cursor: pointer; transition: all 0.2s; }
+    .run-btn:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.85); }
+    .run-btn.running { color: #28c840; border-color: #28c840; }
+    .terminal-output { padding: 1.4rem 1.6rem 0; min-height: 280px; max-height: 460px; overflow-y: auto; font-family: var(--mono); font-size: 13px; line-height: 1.75; color: #d4d0c8; }
+    .terminal-output::-webkit-scrollbar { width: 4px; }
+    .terminal-output::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .terminal-input-row { display: flex; align-items: center; padding: 0.8rem 1.6rem 1.2rem; gap: 0.5rem; border-top: 0.5px solid rgba(255,255,255,0.05); margin-top: 0.4rem; }
+    .input-caret { font-family: var(--mono); font-size: 13px; color: #28c840; flex-shrink: 0; }
+    #user-input { flex: 1; background: transparent; border: none; outline: none; font-family: var(--mono); font-size: 13px; color: #f0ede6; caret-color: #28c840; }
+    #user-input::placeholder { color: rgba(255,255,255,0.2); }
+    #user-input:disabled { opacity: 0.35; cursor: not-allowed; }
+    .send-btn { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 2px; border: 0.5px solid rgba(255,255,255,0.12); background: transparent; color: rgba(255,255,255,0.4); cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+    .send-btn:hover:not(:disabled) { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
+    .send-btn:disabled { opacity: 0.2; cursor: not-allowed; }
+    .concepts { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 0.5px solid var(--border); }
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 1.5rem; }
+    .concept-item { background: var(--bg); padding: 1rem 1.2rem; font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.04em; }
+    .concept-item strong { display: block; font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.2rem; }
+    @media (max-width: 640px) { .page { padding: 7rem 1.5rem 4rem; } .game-header { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="../index.html">Hitendra</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a href="../Résumé.html">Resume</a></li>
+      <li><a href="../Project_2.html">Games</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="game-header">
+      <div>
+        <p class="section-label">Game 06</p>
+        <h2>Trivia Quiz Game</h2>
+        <div class="game-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">Dictionaries</span>
+          <span class="meta-tag">JSON (embedded)</span>
+          <span class="meta-tag">random.sample</span>
+          <span class="meta-tag">enumerate</span>
+          <span class="meta-tag">Timer</span>
+        </div>
+      </div>
+      <a class="back-link" href="../Project_2.html">← Back to Games</a>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+        <span class="terminal-title">trivia_quiz.py</span>
+        <button class="run-btn" id="run-btn" onclick="startGame()">▶ Run</button>
+      </div>
+      <div class="terminal-output" id="output">
+        <p style="color:rgba(255,255,255,0.3);font-family:'DM Mono',monospace;font-size:11px;margin:0;">// Press ▶ Run — choose a category and test your knowledge</p>
+      </div>
+      <div class="terminal-input-row">
+        <span class="input-caret">›</span>
+        <input type="text" id="user-input" placeholder="Press Run to start…" disabled autocomplete="off" spellcheck="false"/>
+        <button class="send-btn" id="send-btn" onclick="submitInput()" disabled>Enter ↵</button>
+      </div>
+    </div>
+
+    <div class="concepts">
+      <p class="section-label">Concepts practiced</p>
+      <div class="concepts-grid">
+        <div class="concept-item"><strong>JSON / Dicts</strong>questions as data</div>
+        <div class="concept-item"><strong>random.sample</strong>no repeat questions</div>
+        <div class="concept-item"><strong>enumerate</strong>numbered choices</div>
+        <div class="concept-item"><strong>Timer</strong>time.time() delta</div>
+        <div class="concept-item"><strong>Try/Except</strong>safe int() parsing</div>
+        <div class="concept-item"><strong>Recursion</strong>play again loop</div>
+      </div>
+    </div>
+  </div>
+
+  <footer><p>Designed &amp; built by Hitendra Annavarapu — 2026</p></footer>
+
+  <script>
+    const PYTHON_CODE = `
+import random
+import time
+
+# JSON data embedded directly — no file I/O needed in the browser
+ALL_QUESTIONS = {
+    "Science": [
+        {"question": "What is the chemical symbol for gold?",         "choices": ["Go","Gd","Au","Ag"],                                                          "answer": "Au"},
+        {"question": "How many bones are in the adult human body?",   "choices": ["186","206","226","246"],                                                       "answer": "206"},
+        {"question": "Which planet has the most moons?",              "choices": ["Jupiter","Saturn","Uranus","Neptune"],                                          "answer": "Saturn"},
+    ],
+    "History": [
+        {"question": "In which year did World War II end?",           "choices": ["1943","1944","1945","1946"],                                                    "answer": "1945"},
+        {"question": "Who was the first person to walk on the Moon?", "choices": ["Buzz Aldrin","Neil Armstrong","Yuri Gagarin","John Glenn"],                     "answer": "Neil Armstrong"},
+        {"question": "Which ancient wonder was located in Alexandria?","choices": ["Colossus of Rhodes","Hanging Gardens","Lighthouse of Alexandria","Temple of Artemis"], "answer": "Lighthouse of Alexandria"},
+    ],
+    "Pop Culture": [
+        {"question": "What is the fictional kingdom in Frozen?",      "choices": ["Arendelle","Agrabah","Aldovia","Aethermoor"],                                   "answer": "Arendelle"},
+        {"question": "Which band wrote Bohemian Rhapsody?",           "choices": ["The Beatles","Led Zeppelin","Queen","Pink Floyd"],                              "answer": "Queen"},
+        {"question": "How many Harry Potter books are there?",        "choices": ["5","6","7","8"],                                                               "answer": "7"},
+    ],
+    "Python": [
+        {"question": "What keyword defines a function in Python?",    "choices": ["func","def","function","define"],                                               "answer": "def"},
+        {"question": "What does len([1, 2, 3]) return?",              "choices": ["2","3","4","Error"],                                                           "answer": "3"},
+        {"question": "Which data type is mutable?",                   "choices": ["tuple","string","list","int"],                                                  "answer": "list"},
+    ],
+}
+
+
+def pick_questions(all_q, num, category=None):
+    # pull from one category or flatten everything into a mixed pool
+    if category and category in all_q:
+        pool = all_q[category]
+    else:
+        pool = [q for questions in all_q.values() for q in questions]
+    # random.sample picks N items with no repeats
+    return random.sample(pool, min(num, len(pool)))
+
+
+def ask_question(number, q, timed=False):
+    print("\\nQ" + str(number) + ": " + q["question"])
+
+    choices = q["choices"][:]   # copy so shuffling doesn't affect the original
+    random.shuffle(choices)
+
+    for i, choice in enumerate(choices, start=1):
+        print("  " + str(i) + ". " + choice)
+
+    start = time.time()
+
+    # keep asking until we get a valid number
+    while True:
+        try:
+            ans = int(input("Your answer (number): ").strip())
+            if 1 <= ans <= len(choices):
+                break
+            print("[!] Enter a number between 1 and " + str(len(choices)) + ".")
+        except ValueError:
+            print("[!] Please enter a number.")
+
+    elapsed = round(time.time() - start, 1)
+    chosen  = choices[ans - 1]
+    correct = q["answer"]
+
+    if chosen == correct:
+        print("[+] Correct!" + ("  (" + str(elapsed) + "s)" if timed else ""))
+        return True
+    else:
+        print("[-] Wrong! The answer was: " + correct)
+        return False
+
+
+def show_scoreboard(score, total, label):
+    pct = score * 100 // total
+    print("\\n" + "=" * 36)
+    print("QUIZ COMPLETE -- " + label)
+    print("Score: " + str(score) + "/" + str(total) + "  (" + str(pct) + "%)")
+
+    if pct == 100:
+        rating = "[***] Perfect!"
+    elif pct >= 70:
+        rating = "[**]  Well done!"
+    elif pct >= 40:
+        rating = "[*]   Keep practicing."
+    else:
+        rating = "[ ]   Better luck next time!"
+
+    print(rating)
+    print("=" * 36)
+
+
+def main():
+    print("TRIVIA QUIZ GAME\\n")
+
+    categories = list(ALL_QUESTIONS.keys())
+    print("Categories:")
+    print("  0. All categories (mixed)")
+    for i, cat in enumerate(categories, start=1):
+        print("  " + str(i) + ". " + cat)
+
+    # pick category
+    try:
+        cat_choice = int(input("\\nChoose a category (0-" + str(len(categories)) + "): ").strip())
+        if cat_choice == 0:
+            category = None
+            label    = "Mixed"
+        else:
+            category = categories[cat_choice - 1]
+            label    = category
+    except (ValueError, IndexError):
+        category = None
+        label    = "Mixed"
+
+    # number of questions
+    try:
+        raw = input("How many questions? (default 5): ").strip()
+        num = int(raw) if raw else 5
+    except ValueError:
+        num = 5
+
+    # timed mode?
+    timed = input("Enable timer? (y/n): ").strip().lower() == "y"
+
+    questions = pick_questions(ALL_QUESTIONS, num, category)
+    score = 0
+
+    print("\\nStarting " + label + " quiz — " + str(len(questions)) + " questions!")
+    print("-" * 36)
+
+    for i, q in enumerate(questions, start=1):
+        if ask_question(i, q, timed):
+            score += 1
+
+    show_scoreboard(score, len(questions), label)
+
+    again = input("\\nPlay again? (y/n): ").strip().lower()
+    if again == "y":
+        main()
+    else:
+        print("Thanks for playing!")
+
+
+main()
+`;
+
+    let inputResolve = null, isRunning = false, pre = null;
+    const outputEl = document.getElementById("output");
+    const inputEl  = document.getElementById("user-input");
+    const sendBtn  = document.getElementById("send-btn");
+    const runBtn   = document.getElementById("run-btn");
+
+    function appendText(txt) { if (pre) { pre.textContent += txt; outputEl.scrollTop = outputEl.scrollHeight; } }
+    function appendSystem(msg, color) {
+      const p = document.createElement("p");
+      p.style.cssText = "color:"+(color||"rgba(255,255,255,0.35)")+";font-family:'DM Mono',monospace;font-size:11px;margin:6px 0 0;";
+      p.textContent = msg; outputEl.appendChild(p); outputEl.scrollTop = outputEl.scrollHeight;
+    }
+    function setInputEnabled(on, ph) { inputEl.disabled=!on; sendBtn.disabled=!on; inputEl.placeholder=ph||""; if(on) inputEl.focus(); }
+    function builtinRead(x) {
+      if (Sk.builtinFiles===undefined||Sk.builtinFiles["files"][x]===undefined) throw "File not found: '"+x+"'";
+      return Sk.builtinFiles["files"][x];
+    }
+    function inputFun(prompt) { if(prompt) appendText(prompt); setInputEnabled(true,"Type your answer…"); return new Promise(r=>{inputResolve=r;}); }
+    function submitInput() {
+      if(!inputResolve) return;
+      const val=inputEl.value; appendText(val+"\n"); inputEl.value=""; setInputEnabled(false,"Waiting…");
+      const cb=inputResolve; inputResolve=null; cb(val);
+    }
+    inputEl.addEventListener("keydown", e=>{ if(e.key==="Enter") submitInput(); });
+
+    function startGame() {
+      if(typeof Sk==="undefined"){ outputEl.innerHTML=""; appendSystem("Error: Python engine failed to load. Check your internet connection.","#ff8080"); return; }
+      if(isRunning) return;
+      isRunning=true;
+      outputEl.innerHTML="";
+      pre=document.createElement("pre");
+      pre.style.cssText="margin:0;padding:0;background:transparent;color:#d4d0c8;font-family:'DM Mono',monospace;font-size:13px;line-height:1.75;white-space:pre-wrap;word-break:break-word;";
+      outputEl.appendChild(pre);
+      setInputEnabled(false,"Waiting…");
+      runBtn.textContent="● Running"; runBtn.classList.add("running");
+      Sk.configure({ output: txt=>appendText(txt), read: builtinRead, __future__: Sk.python3, inputfun: inputFun, inputfunTakesPrompt: true });
+      Sk.misceval.asyncToPromise(()=>Sk.importMainWithBody("<stdin>",false,PYTHON_CODE,true))
+        .then(()=>appendSystem("— Quiz over. Press ▶ Run to play again. —"))
+        .catch(err=>appendSystem("Error: "+(err.toString?err.toString():String(err)),"#ff8080"))
+        .finally(()=>{ isRunning=false; inputResolve=null; setInputEnabled(false,"Press Run to start…"); runBtn.textContent="▶ Run"; runBtn.classList.remove("running"); });
+    }
+  </script>
+</body>
+</html>

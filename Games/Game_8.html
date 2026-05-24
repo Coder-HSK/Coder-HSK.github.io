@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hitendra — Space Invaders</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../styles.css"/>
+  <style>
+    .nav-links { align-items: center; }
+    .page { max-width: 900px; margin: 0 auto; padding: 9rem 3rem 6rem; animation: fadeUp 0.9s ease both; }
+    .game-header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 3rem; border-bottom: 0.5px solid var(--border); margin-bottom: 3rem; gap: 2rem; flex-wrap: wrap; }
+    .game-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+    .meta-tag { font-family: var(--mono); font-size: 10px; padding: 3px 9px; border: 0.5px solid var(--border); border-radius: 2px; color: var(--ink-muted); background: var(--surface); letter-spacing: 0.04em; }
+    .back-link { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--ink); }
+    .pygame-banner { display: flex; align-items: flex-start; gap: 1.2rem; padding: 1.4rem 1.6rem; border: 0.5px solid var(--border); border-radius: 4px; background: var(--surface); margin-bottom: 2.5rem; }
+    .pygame-banner-icon { font-family: var(--mono); font-size: 11px; color: var(--ink-muted); background: var(--bg); border: 0.5px solid var(--border); padding: 4px 8px; border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
+    .pygame-banner-text h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.4rem; }
+    .pygame-banner-text p { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+    .pygame-banner-text code { font-family: var(--mono); font-size: 11px; background: var(--bg); border: 0.5px solid var(--border); padding: 2px 6px; border-radius: 2px; }
+    .how-to-run { margin-bottom: 2.5rem; padding: 1.6rem; border: 0.5px solid var(--border); border-radius: 4px; }
+    .how-to-run h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 1rem; }
+    .steps { display: flex; flex-direction: column; gap: 0.6rem; }
+    .step { display: flex; gap: 1rem; align-items: flex-start; }
+    .step-num { font-family: var(--mono); font-size: 10px; color: var(--ink-muted); background: var(--surface); border: 0.5px solid var(--border); padding: 2px 7px; border-radius: 2px; flex-shrink: 0; margin-top: 1px; }
+    .step-text { font-size: 13px; color: var(--ink-muted); line-height: 1.6; }
+    .step-text code { font-family: var(--mono); font-size: 11px; background: var(--surface); border: 0.5px solid var(--border); padding: 2px 6px; border-radius: 2px; color: var(--ink); }
+    .code-wrap { border: 0.5px solid var(--border); border-radius: 6px; overflow: hidden; background: #141412; }
+    .code-bar { display: flex; align-items: center; gap: 0.8rem; padding: 0.75rem 1.2rem; background: #1e1d1a; border-bottom: 0.5px solid rgba(255,255,255,0.07); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #ff5f57; } .dot-yellow { background: #ffbd2e; } .dot-green { background: #28c840; }
+    .code-title { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.05em; margin-left: 0.4rem; }
+    .code-lines { padding: 1.4rem 1.6rem; max-height: 440px; overflow-y: auto; font-family: var(--mono); font-size: 12px; line-height: 1.7; color: #d4d0c8; white-space: pre; }
+    .code-lines::-webkit-scrollbar { width: 4px; }
+    .code-lines::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+    .kw { color: #c792ea; } .cm { color: #546e7a; font-style: italic; } .st { color: #c3e88d; } .fn { color: #82aaff; } .nm { color: #f78c6c; }
+    .concepts { margin-top: 2.5rem; padding-top: 2.5rem; border-top: 0.5px solid var(--border); }
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1px; background: var(--border); border: 0.5px solid var(--border); border-radius: 4px; overflow: hidden; margin-top: 1.5rem; }
+    .concept-item { background: var(--bg); padding: 1rem 1.2rem; font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: 0.04em; }
+    .concept-item strong { display: block; font-family: var(--serif); font-size: 1rem; font-weight: 400; color: var(--ink); margin-bottom: 0.2rem; }
+    @media (max-width: 640px) { .page { padding: 7rem 1.5rem 4rem; } .game-header { flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="nav-logo" href="../index.html">Hitendra</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+      <li><a href="../Résumé.html">Resume</a></li>
+      <li><a href="../Project_2.html">Games</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="game-header">
+      <div>
+        <p class="section-label">Game 08</p>
+        <h2>Space Invaders</h2>
+        <div class="game-meta">
+          <span class="meta-tag">Python</span>
+          <span class="meta-tag">pygame</span>
+          <span class="meta-tag">Sprites</span>
+          <span class="meta-tag">OOP</span>
+          <span class="meta-tag">Collision Groups</span>
+          <span class="meta-tag">Game States</span>
+        </div>
+      </div>
+      <a class="back-link" href="../Project_2.html">← Back to Games</a>
+    </div>
+
+    <div class="pygame-banner">
+      <span class="pygame-banner-icon">pygame</span>
+      <div class="pygame-banner-text">
+        <h3>This game runs as a desktop app</h3>
+        <p>Space Invaders uses <code>pygame.sprite</code> groups, real-time rendering at 60fps, and keyboard polling — none of which exist in a browser environment. Run it locally for the full experience with moving aliens, shields, and progressive levels.</p>
+      </div>
+    </div>
+
+    <div class="how-to-run">
+      <h3>How to run it locally</h3>
+      <div class="steps">
+        <div class="step"><span class="step-num">01</span><span class="step-text">Install pygame: <code>pip install pygame</code></span></div>
+        <div class="step"><span class="step-num">02</span><span class="step-text">Download <code>space_invaders.py</code> from the GitHub repo below</span></div>
+        <div class="step"><span class="step-num">03</span><span class="step-text">Run it: <code>python space_invaders.py</code></span></div>
+        <div class="step"><span class="step-num">04</span><span class="step-text"><code>Arrow keys</code> to move, <code>Space</code> to shoot, <code>R</code> to restart</span></div>
+      </div>
+    </div>
+
+    <div class="code-wrap">
+      <div class="code-bar">
+        <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+        <span class="code-title">space_invaders.py — source code</span>
+        <a href="https://github.com/Coder-HSK" target="_blank" style="margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.4);text-decoration:none;padding:4px 10px;border:0.5px solid rgba(255,255,255,0.12);border-radius:2px;transition:all 0.2s;" onmouseover="this.style.color='rgba(255,255,255,0.8)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">GitHub ↗</a>
+      </div>
+      <div class="code-lines"><span class="cm">"""
+PROJECT 8: Space Invaders Clone
+=================================
+Concepts: pygame sprites, sprite groups, collision detection,
+          enemy movement patterns, shooting mechanics, game states
+"""</span>
+
+<span class="kw">import</span> pygame
+<span class="kw">import</span> random, sys
+
+WIDTH, HEIGHT = <span class="nm">800</span>, <span class="nm">600</span>
+FPS           = <span class="nm">60</span>
+
+<span class="kw">class</span> <span class="fn">Player</span>(pygame.sprite.Sprite):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self):
+        super().__init__()
+        self.image = pygame.Surface((<span class="nm">40</span>, <span class="nm">30</span>), pygame.SRCALPHA)
+        pygame.draw.polygon(self.image, CYAN, [(<span class="nm">20</span>,<span class="nm">0</span>),(<span class="nm">0</span>,<span class="nm">28</span>),(<span class="nm">40</span>,<span class="nm">28</span>)])
+        self.rect  = self.image.get_rect(midbottom=(WIDTH//<span class="nm">2</span>, HEIGHT-<span class="nm">20</span>))
+        self.last_shot = <span class="nm">0</span>
+
+    <span class="kw">def</span> <span class="fn">update</span>(self, keys):
+        <span class="kw">if</span> keys[pygame.K_LEFT]  <span class="kw">and</span> self.rect.left  > <span class="nm">0</span>:     self.rect.x -= PLAYER_SPEED
+        <span class="kw">if</span> keys[pygame.K_RIGHT] <span class="kw">and</span> self.rect.right &lt; WIDTH: self.rect.x += PLAYER_SPEED
+
+    <span class="kw">def</span> <span class="fn">shoot</span>(self):
+        self.last_shot = pygame.time.get_ticks()
+        <span class="kw">return</span> Bullet(self.rect.centerx, self.rect.top, -BULLET_SPEED, YELLOW)
+
+
+<span class="kw">class</span> <span class="fn">Enemy</span>(pygame.sprite.Sprite):
+    COLORS = [RED, (<span class="nm">200</span>,<span class="nm">80</span>,<span class="nm">200</span>), GREEN, CYAN]
+
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, col, row):
+        super().__init__()
+        color = Enemy.COLORS[row % len(Enemy.COLORS)]
+        self.image = pygame.Surface((<span class="nm">36</span>, <span class="nm">26</span>), pygame.SRCALPHA)
+        pygame.draw.ellipse(self.image, color, (<span class="nm">4</span>,<span class="nm">8</span>,<span class="nm">28</span>,<span class="nm">16</span>))
+        self.rect   = self.image.get_rect()
+        self.points = (ENEMY_ROWS - row) * <span class="nm">10</span>   <span class="cm"># top rows worth more</span>
+
+
+<span class="kw">class</span> <span class="fn">Bullet</span>(pygame.sprite.Sprite):
+    <span class="kw">def</span> <span class="fn">update</span>(self):
+        self.rect.y += self.speed
+        <span class="kw">if</span> self.rect.bottom &lt; <span class="nm">0</span> <span class="kw">or</span> self.rect.top > HEIGHT:
+            self.kill()   <span class="cm"># remove from all sprite groups</span>
+
+
+<span class="kw">class</span> <span class="fn">Shield</span>(pygame.sprite.Sprite):
+    <span class="kw">def</span> <span class="fn">hit</span>(self):
+        self.hits -= <span class="nm">1</span>
+        self.image.set_alpha(int(<span class="nm">255</span> * self.hits / <span class="nm">3</span>))
+        <span class="kw">if</span> self.hits &lt;= <span class="nm">0</span>: self.kill()
+
+
+<span class="kw">class</span> <span class="fn">Game</span>:
+    <span class="kw">def</span> <span class="fn">reset</span>(self):
+        self.score = <span class="nm">0</span>; self.lives = <span class="nm">3</span>; self.level = <span class="nm">1</span>
+        self.all_sprites    = pygame.sprite.Group()
+        self.enemies        = pygame.sprite.Group()
+        self.player_bullets = pygame.sprite.Group()
+        self.enemy_bullets  = pygame.sprite.Group()
+        self.shields        = pygame.sprite.Group()
+
+    <span class="kw">def</span> <span class="fn">handle_collisions</span>(self):
+        <span class="cm"># player bullets vs enemies</span>
+        hits = pygame.sprite.groupcollide(
+            self.enemies, self.player_bullets, <span class="kw">True</span>, <span class="kw">True</span>)
+        <span class="kw">for</span> enemy <span class="kw">in</span> hits:
+            self.score += enemy.points
+        <span class="cm"># enemy bullets vs player</span>
+        <span class="kw">if</span> pygame.sprite.spritecollide(self.player, self.enemy_bullets, <span class="kw">True</span>):
+            self.lives -= <span class="nm">1</span>
+            <span class="kw">if</span> self.lives &lt;= <span class="nm">0</span>: self.game_over = <span class="kw">True</span>
+
+    <span class="kw">def</span> <span class="fn">run</span>(self):
+        <span class="kw">while True</span>:
+            <span class="kw">for</span> event <span class="kw">in</span> pygame.event.get():
+                <span class="kw">if</span> event.type == pygame.QUIT:
+                    pygame.quit(); sys.exit()
+            <span class="kw">if not</span> self.game_over:
+                keys = pygame.key.get_pressed()
+                self.player.update(keys)
+                <span class="kw">if</span> keys[pygame.K_SPACE] <span class="kw">and</span> self.player.can_shoot():
+                    b = self.player.shoot()
+                    self.player_bullets.add(b)
+                self.handle_collisions()
+                <span class="kw">if not</span> self.enemies:
+                    self.level += <span class="nm">1</span>
+                    self.spawn_enemies()
+            self.screen.fill(BLACK)
+            self.all_sprites.draw(self.screen)
+            pygame.display.flip()
+            self.clock.tick(FPS)
+
+<span class="kw">if</span> __name__ == <span class="st">"__main__"</span>:
+    Game().run()</div>
+    </div>
+
+    <div class="concepts">
+      <p class="section-label">Concepts practiced</p>
+      <div class="concepts-grid">
+        <div class="concept-item"><strong>Sprites</strong>pygame.sprite.Sprite</div>
+        <div class="concept-item"><strong>OOP</strong>Player, Enemy, Bullet</div>
+        <div class="concept-item"><strong>Collisions</strong>groupcollide()</div>
+        <div class="concept-item"><strong>Game States</strong>reset, level, over</div>
+        <div class="concept-item"><strong>Shooting</strong>cooldown timer</div>
+        <div class="concept-item"><strong>Patterns</strong>enemy wall bounce</div>
+      </div>
+    </div>
+  </div>
+
+  <footer><p>Designed &amp; built by Hitendra Annavarapu — 2026</p></footer>
+</body>
+</html>
