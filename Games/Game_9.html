@@ -171,6 +171,7 @@ Concepts: physics (gravity, jumping), tilemaps, camera/scrolling,
         <div class="concept-item"><strong>State Mgmt</strong>Level transitions</div>
         <div class="concept-item"><strong>Collectibles</strong>Sprite collisions</div>
       </div>
+      <p class="section-label">I built a side-scrolling platformer with gravity physics, tilemap-based level loading, enemy AI, collectibles, and a dynamic camera that keeps the player centred while clamping at level boundaries. I learned how to implement a proper physics update loop — applying gravity each frame, clamping terminal velocity, and resolving vertical collisions by snapping the player's rect to the tile surface. The most satisfying bug to fix was the "jumping off a ledge" problem, where players would lose their jump ability a frame too early as they walked off an edge. I solved this by implementing coyote time — a short grace-period counter (coyote_frames) that starts when the player leaves the ground, giving them a few frames to still trigger a jump as if they were still standing on the platform.</p>
     </div>
   </div>
 

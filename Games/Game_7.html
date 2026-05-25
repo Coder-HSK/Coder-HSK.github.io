@@ -252,6 +252,7 @@ RIGHT = (<span class="nm">1</span>,  <span class="nm">0</span>)
         <div class="concept-item"><strong>Sets</strong>fast food spawn check</div>
         <div class="concept-item"><strong>Closures</strong>new_game, spawn_food</div>
       </div>
+      <p class="section-label">I built a classic Snake game using pygame, representing the snake's body as a collections.deque so I could efficiently add to the head and remove from the tail in O(1) time without shifting a full list. I learned how a pygame game loop works — polling events, updating state, and rendering every frame at a fixed FPS; and how grid-based movement maps pixel coordinates to cell positions. The bug that stumped me most was the snake occasionally reversing into itself when keys were pressed quickly: the fix was introducing a pending_dir variable that buffers the next direction and only applies it at the start of each tick, preventing a mid-frame direction reversal.</p>
     </div>
   </div>
 

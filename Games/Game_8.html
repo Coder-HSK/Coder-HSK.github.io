@@ -137,6 +137,7 @@ between player bullets, enemy bullets, and destructible shields.
         <div class="concept-item"><strong>Shooting</strong>cooldown timer</div>
         <div class="concept-item"><strong>Patterns</strong>enemy wall bounce</div>
       </div>
+      <p class="section-label">I built a Space Invaders clone using pygame's sprite system, organising the player, enemies, bullets, and destructible shields as individual pygame.sprite.Sprite subclasses managed in groups. I learned how pygame.sprite.groupcollide and spritecollide make collision detection between multiple groups clean and efficient, and how to structure a game with proper state management across reset, active, and game-over phases. The hardest debugging problem was shields being destroyed by the wrong bullets; both player and enemy bullets were hitting shields inconsistently. I traced it to the dokilla flags in groupcollide being set incorrectly, and fixed it by carefully setting them to False for shields (so they persist and take damage) and True for bullets (so they are consumed on impact).</p>
     </div>
   </div>
 

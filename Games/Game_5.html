@@ -246,7 +246,8 @@
         <div class="concept-item"><strong>Game loop</strong>state + input + render</div>
       </div>
       <p class="section-label"></p>
-      <p class="section-label"> I used 2D lists, recursion, and depth-first search to both generate a maze and then solve it automatically. I learned how algorithms can create something that looks almost artistic— a unique maze every single run— and how the same core idea (DFS) can be used to both build and navigate a structure. Like every other game, I had to debug this code as well because my coding experience with Skulpt is minimal, and I wasn't aware that Skulpt can't run curses, which was the basis of my maze’s design. However, I was able to get through this one using AI and free online resources like W3Schools; I used blue pixels in place of walls and dots identical to my original Python code’s output to portray crumbs and the player. Finally, I got to watch my program solve its own puzzle in real time, step by step, like it was actually thinking.</p>
+      <p class="section-label">Reflection</p>
+      <p class="section-label">I built a maze generator and solver using recursive depth-first search, representing the maze as a 2D grid of walls and paths stored in nested lists. I learned how a stack-based DFS can carve out a perfect maze by tracking visited cells in a set and backtracking when no unvisited neighbours remain. The trickiest debugging moment came when porting it to the browser; the original used Python's curses library for real-time key input, which Skulpt can't support. I worked around it by switching to a turn-based input model where the player types a direction and presses Enter, keeping the maze logic identical while making it fully playable in the browser terminal.</p>
     </div>
 
   </div>
