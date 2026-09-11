@@ -1,4 +1,4 @@
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
       --bg: #F7F5F0;
@@ -293,7 +293,7 @@
 
     /* ── PAGE WRAPPER ── */
     .page {
-      max-width: 900px;
+      max-width: 1180px;
       margin: 0 auto;
       padding: 9rem 3rem 6rem;
       animation: fadeUp 0.9s ease both;
@@ -374,8 +374,8 @@
     /* ── RESUME BODY GRID ── */
     .resume-body {
       display: grid;
-      grid-template-columns: 1fr 260px;
-      gap: 0 4rem;
+      grid-template-columns: 1fr 300px;
+      gap: 0 5rem;
       align-items: start;
     }
 
@@ -455,7 +455,7 @@
     @media print {
       nav, .print-btn { display: none !important; }
       body { background: #fff; }
-      .page { padding: 2rem; }
+      .page { padding: 2rem; max-width: 100%; }
       .resume-body { grid-template-columns: 1fr 220px; gap: 0 2.5rem; }
     }
 
@@ -467,4 +467,4 @@
       .contact-info { align-items: flex-start; }
       .resume-body { grid-template-columns: 1fr; }
       .resume-sidebar { border-left: none; border-top: 0.5px solid var(--border); padding-left: 0; padding-top: 2rem; margin-top: 1rem; }
-    } 
+    }
