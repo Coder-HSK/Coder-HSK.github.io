@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hitendra — Campfire</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    /* ── PROJECT PAGE SPECIFIC (Campfire / DiskMetrics) ── */
+    .nav-links { align-items: center; }
+    .nav-links a.active { color: var(--ink); }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 9rem 3rem 6rem;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .proj-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-bottom: 3rem;
+      border-bottom: 0.5px solid var(--border);
+      margin-bottom: 3rem;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .proj-tagline {
+      font-size: 14px;
+      color: var(--ink-muted);
+      max-width: 380px;
+      line-height: 1.7;
+    }
+
+    .proj-links {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .proj-meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 1.8rem 0;
+      margin-bottom: 3rem;
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+    }
+    .meta-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 0.4rem;
+    }
+    .meta-value { font-family: var(--serif); font-size: 1.1rem; }
+
+    .proj-stack { margin-bottom: 3.5rem; }
+    .proj-stack .skills-cloud { margin-top: 1rem; }
+
+    .shot-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4rem;
+    }
+    .shot-card {
+      border: 0.5px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    .shot-img { width: 100%; display: block; border-bottom: 0.5px solid var(--border); }
+    .shot-caption { padding: 1rem 1.2rem 1.3rem; }
+    .shot-title { font-family: var(--serif); font-size: 1rem; margin-bottom: 0.35rem; }
+    .shot-desc { font-size: 12.5px; color: var(--ink-muted); line-height: 1.55; }
+
+    @media print { nav { display: none !important; } }
+    @media (max-width: 700px) {
+      .page { padding: 7rem 1.5rem 4rem; }
+      .proj-header { flex-direction: column; align-items: flex-start; }
+      .proj-meta { grid-template-columns: 1fr 1fr; }
+      .shot-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html">Hitendra</a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+      <li><a href="Résumé.html">Resume</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="proj-header">
+      <div>
+        <p class="section-label">003 — Campfire</p>
+        <h2>Study rooms,<br>rebuilt.</h2>
+      </div>
+      <p class="proj-tagline">A study-room app where you teach a syllabus to an AI instead of the other way around — it tracks real topic coverage before an exam, and only your phone, never your laptop, has to go face-down during a session.</p>
+    </div>
+
+    <!-- LINKS -->
+    <div class="proj-links">
+      <a class="btn btn-outline" href="https://github.com/avdheshchhetri/campfire" target="_blank">GitHub →</a>
+      <a class="btn btn-outline" href="https://campfire-ebon.vercel.app" target="_blank">Live app →</a>
+    </div>
+
+    <!-- META -->
+    <div class="proj-meta">
+      <div>
+        <p class="meta-label">Event</p>
+        <p class="meta-value">HackWesTX 2026</p>
+      </div>
+      <div>
+        <p class="meta-label">Team</p>
+        <p class="meta-value">4 people</p>
+      </div>
+      <div>
+        <p class="meta-label">Timeframe</p>
+        <p class="meta-value">24 hours</p>
+      </div>
+      <div>
+        <p class="meta-label">Result</p>
+        <p class="meta-value">Top 5 · Best Auth0</p>
+      </div>
+    </div>
+
+    <!-- STACK -->
+    <div class="proj-stack">
+      <p class="section-label">Stack</p>
+      <div class="skills-cloud">
+        <span class="skill-pill">React</span>
+        <span class="skill-pill">Vite</span>
+        <span class="skill-pill">Supabase</span>
+        <span class="skill-pill">PostgreSQL</span>
+        <span class="skill-pill">Auth0</span>
+        <span class="skill-pill">Claude</span>
+        <span class="skill-pill">Gemini</span>
+        <span class="skill-pill">ElevenLabs</span>
+        <span class="skill-pill">Vercel</span>
+      </div>
+    </div>
+
+    <!-- SCREENS -->
+    <p class="section-label">Screens</p>
+    <div class="shot-grid">
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/01-landing.png" alt="Campfire landing page">
+        <div class="shot-caption">
+          <p class="shot-title">Landing Page</p>
+          <p class="shot-desc">The entry point to Campfire: a shared focus space pitch with one-click sign-in via Auth0.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/02-auth0-login.png" alt="Auth0 login screen">
+        <div class="shot-caption">
+          <p class="shot-title">Secure Sign-In via Auth0</p>
+          <p class="shot-desc">Campfire's authentication flow, powered by Auth0 — supports email/password and Google social sign-in.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/03-create-room.png" alt="Creating a study room">
+        <div class="shot-caption">
+          <p class="shot-title">Creating a Study Room</p>
+          <p class="shot-desc">Starting a new study room: name it, tag the subject, and optionally set an exam date to drive syllabus-coverage reminders.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/04-join-room.png" alt="Joining a study room">
+        <div class="shot-caption">
+          <p class="shot-title">Joining a Study Room</p>
+          <p class="shot-desc">Joining an existing room with a shared room code — the same screen surfaces rooms you've already joined.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/05-room-overview.png" alt="Study room overview">
+        <div class="shot-caption">
+          <p class="shot-title">Inside a Study Room</p>
+          <p class="shot-desc">The room hub: upload a syllabus, start a phone-free "Tabledown" focus session, or generate a shared syllabus-based challenge.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/06-syllabus-upload.png" alt="Syllabus upload screen">
+        <div class="shot-caption">
+          <p class="shot-title">Turning a Syllabus into a Study Plan</p>
+          <p class="shot-desc">Paste or upload a syllabus and let AI break it into a structured list of topics to track.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/07-ai-parsed-topics.png" alt="AI-parsed syllabus topics">
+        <div class="shot-caption">
+          <p class="shot-title">AI-Generated Topic Review</p>
+          <p class="shot-desc">After analyzing an uploaded syllabus PDF, Campfire surfaces a full topic list to review and edit before adding it to the room.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/08-learning-map.png" alt="Learning map">
+        <div class="shot-caption">
+          <p class="shot-title">The Learning Map</p>
+          <p class="shot-desc">A visual coverage tracker for the room's syllabus — each topic starts "Untouched" and updates as it's taught and verified.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/09-leaderboard.png" alt="Group leaderboard">
+        <div class="shot-caption">
+          <p class="shot-title">Group Leaderboard</p>
+          <p class="shot-desc">Tracks verified topic coverage per person and for the room as a whole — progress is a shared, not individual, metric.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/10-games.png" alt="Study games">
+        <div class="shot-caption">
+          <p class="shot-title">Study Games</p>
+          <p class="shot-desc">Three games generated from the room's own syllabus: Spark Round, The Ember Riddle (voice-narrated), and Two Truths, One Lie.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/11-flashcards.png" alt="AI-generated flashcards">
+        <div class="shot-caption">
+          <p class="shot-title">AI-Generated Flashcards</p>
+          <p class="shot-desc">On-demand flashcards generated from syllabus topics for quick review and repetition.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/12-campfire-mode-phone.png" alt="Campfire mode phone view">
+        <div class="shot-caption">
+          <p class="shot-title">Phone Face-Down Detection</p>
+          <p class="shot-desc">The phone side of Campfire Mode: motion detection confirms a phone is face-down before the group's focus session counts it as active.</p>
+        </div>
+      </div>
+
+      <div class="shot-card">
+        <img class="shot-img" src="assets/campfire/13-live-session.png" alt="Live group challenge session">
+        <div class="shot-caption">
+          <p class="shot-title">Group Challenges, Live</p>
+          <p class="shot-desc">During an active session, the group answers a shared AI-generated question together — built to spark discussion, not solo scrolling.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /page -->
+
+  <footer>
+    <p>Designed &amp; built by Hitendra Annavarapu — 2026</p>
+  </footer>
+
+</body>
+</html>
