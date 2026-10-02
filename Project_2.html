@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hitendra — Python Games</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,500;0,600;1,400\&family=IBM+Plex+Sans:wght@300;400;500;600\&family=IBM+Plex+Mono:wght@400;500\&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
   <style>
     /* ── GAMES PAGE SPECIFIC ── */
     .nav-links { align-items: center; }
-    .nav-links a.active { color: var(--ink); }
+    .nav-links a.active { color: var(--accent); }
 
     .page {
       max-width: 900px;
@@ -85,7 +85,7 @@
       min-height: 130px;
     }
     .game-card:hover { background: var(--surface); }
-    .game-card:hover .card-arrow { transform: translate(3px, -3px); }
+    .game-card:hover .card-arrow { transform: translate(3px, -3px); color: var(--accent); }
 
     .card-top {}
     .card-name {
@@ -119,9 +119,9 @@
       color: var(--ink-muted);
     }
     .card-badge.done {
-      background: var(--ink);
+      background: var(--accent);
       color: var(--bg);
-      border-color: var(--ink);
+      border-color: var(--accent);
     }
     .card-arrow {
       font-size: 16px;
@@ -165,7 +165,7 @@
     <!-- HEADER -->
     <div class="games-header">
       <div>
-        <p class="section-label">002 — Python Games</p>
+        <p class="section-label">002 / Python Games</p>
         <h2>Things I built<br>for fun.</h2>
       </div>
       <p class="games-tagline">Coding clicked for me when I started building games. These nine projects are my roadmap, from a simple number guesser to a full Space Invaders clone.</p>
@@ -279,7 +279,7 @@
             <p class="card-lang">Python</p>
           </div>
           <div class="card-bottom">
-            <span class="card-badge done">Comepleted</span>
+            <span class="card-badge done">Completed</span>
             <span class="card-arrow">↗</span>
           </div>
         </a>

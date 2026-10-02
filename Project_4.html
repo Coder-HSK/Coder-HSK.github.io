@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Hitendra — DiskMetrics</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Literata:ital,wght@0,400;0,500;0,600;1,400\&family=IBM+Plex+Sans:wght@300;400;500;600\&family=IBM+Plex+Mono:wght@400;500\&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
   <style>
     /* ── PROJECT PAGE SPECIFIC (Campfire / DiskMetrics) ── */
     .nav-links { align-items: center; }
-    .nav-links a.active { color: var(--ink); }
+    .nav-links a.active { color: var(--accent); }
 
     .page {
       max-width: 1100px;
@@ -74,7 +74,9 @@
       border-radius: 4px;
       overflow: hidden;
       background: var(--surface);
+      transition: border-color 0.2s;
     }
+    .shot-card:hover { border-color: var(--accent); }
     .shot-img { width: 100%; display: block; border-bottom: 0.5px solid var(--border); }
     .shot-caption { padding: 1rem 1.2rem 1.3rem; }
     .shot-title { font-family: var(--serif); font-size: 1rem; margin-bottom: 0.35rem; }
@@ -107,7 +109,7 @@
     <!-- HEADER -->
     <div class="proj-header">
       <div>
-        <p class="section-label">004 — DiskMetrics</p>
+        <p class="section-label">004 / DiskMetrics</p>
         <h2>Storage,<br>made visible.</h2>
       </div>
       <p class="proj-tagline">A native macOS menu bar app for real-time storage health, I/O activity, and per-process disk monitoring — built at the same hackathon as Campfire, for the TCL File System Tools Challenge.</p>
