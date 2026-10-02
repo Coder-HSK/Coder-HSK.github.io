@@ -1,17 +1,18 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #FAFAF9;
-      --surface: #F0F1F4;
-      --ink: #14171F;
-      --ink-muted: #5B6270;
-      --accent: #2E5BFF;
-      --accent-dim: #1E3FC7;
-      --accent-tint: rgba(46,91,255,0.08);
-      --border: rgba(20,23,31,0.12);
-      --mono: 'IBM Plex Mono', monospace;
-      --serif: 'Literata', serif;
-      --sans: 'IBM Plex Sans', sans-serif;
+      --bg: #F7F5F0;
+      --surface: #EDEAE3;
+      --ink: #1A1916;
+      --ink-muted: #6B6860;
+      --accent: #2F6F4E;
+      --accent-dim: #24583E;
+      --copper: #A6672F;
+      --accent-light: #E8E5DE;
+      --border: rgba(26,25,22,0.12);
+      --mono: 'DM Mono', monospace;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
