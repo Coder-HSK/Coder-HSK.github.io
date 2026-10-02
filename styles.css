@@ -5,9 +5,7 @@
       --surface: #EDEAE3;
       --ink: #1A1916;
       --ink-muted: #6B6860;
-      --accent: #2F6F4E;
-      --accent-dim: #24583E;
-      --copper: #A6672F;
+      --accent: #1A1916;
       --accent-light: #E8E5DE;
       --border: rgba(26,25,22,0.12);
       --mono: 'DM Mono', monospace;
@@ -55,7 +53,6 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--ink); }
-    .nav-links a.active { color: var(--accent); }
 
     /* ── SECTIONS ── */
     section { padding: 7rem 3rem; max-width: 900px; margin: 0 auto; }
@@ -66,8 +63,6 @@
       display: flex; flex-direction: column; justify-content: center;
       padding-top: 8rem;
       animation: fadeUp 0.9s ease both;
-      background-image: radial-gradient(circle, rgba(47,111,78,0.12) 1px, transparent 1px);
-      background-size: 26px 26px;
     }
     .hero-label {
       font-family: var(--mono);
@@ -80,7 +75,7 @@
     .hero-label span {
       display: inline-block;
       width: 28px; height: 1px;
-      background: var(--accent);
+      background: var(--ink-muted);
       vertical-align: middle;
       margin-right: 10px;
     }
@@ -115,16 +110,16 @@
       border: none;
     }
     .btn-primary {
-      background: var(--accent);
+      background: var(--ink);
       color: var(--bg);
     }
-    .btn-primary:hover { background: var(--accent-dim); }
+    .btn-primary:hover { opacity: 0.85; }
     .btn-outline {
       background: transparent;
       color: var(--ink);
       border: 0.5px solid var(--border);
     }
-    .btn-outline:hover { background: var(--surface); border-color: var(--accent); }
+    .btn-outline:hover { background: var(--surface); }
 
     .hero-scroll {
       position: absolute;
@@ -210,8 +205,6 @@
       cursor: pointer;
     }
     .project-card:hover { background: var(--surface); }
-    .project-card:hover .ptag { color: var(--accent); border-color: var(--accent); }
-    .project-card:hover .project-arrow { color: var(--accent); }
     .project-num {
       font-family: var(--mono);
       font-size: 11px;
@@ -262,7 +255,7 @@
       padding-bottom: 2px;
       transition: color 0.2s, border-color 0.2s;
     }
-    .contact-link:hover { color: var(--ink); border-color: var(--accent); }
+    .contact-link:hover { color: var(--ink); border-color: var(--ink); }
 
     /* ── FOOTER ── */
     footer {
@@ -296,7 +289,7 @@
     }
     /* ── NAV: active state + vertical alignment (resume-only additions) ── */
     .nav-links { align-items: center; }
-    .nav-links a.active { color: var(--accent); }
+    .nav-links a.active { color: var(--ink); }
 
     /* ── PAGE WRAPPER ── */
     .page {
@@ -437,7 +430,6 @@
       font-size: 2rem;
       line-height: 1;
       margin-bottom: 0.3rem;
-      color: var(--accent);
     }
     .vol-label {
       font-family: var(--mono);
