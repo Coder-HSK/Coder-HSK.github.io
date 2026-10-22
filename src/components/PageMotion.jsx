@@ -24,8 +24,8 @@ export default function PageMotion() {
         gsap.to(targets, {
           autoAlpha: 1,
           y: 0,
-          duration: 4.35,
-          stagger: 0.16,
+          duration: 0.8,
+          stagger: 0.06,
           ease: 'power3.out',
           clearProps: 'transform,opacity,visibility',
         })
