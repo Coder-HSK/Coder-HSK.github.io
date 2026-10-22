@@ -3,6 +3,7 @@ import { projects } from '../data/content'
 
 export default function ProjectPile() {
   const [active, setActive] = useState(null)
+  const activeProject = projects[active ?? 0]
 
   return (
     <section className="projects-section" id="work" aria-labelledby="work-title">
@@ -33,6 +34,15 @@ export default function ProjectPile() {
             </article>
           </div>
         ))}
+        <a
+          className="pile-card-link"
+          href={`#/projects/${activeProject.slug}`}
+          data-route
+          aria-label={`Open ${activeProject.title}`}
+          onPointerEnter={() => setActive((current) => current ?? 0)}
+          onFocus={() => setActive((current) => current ?? 0)}
+          onBlur={() => setActive(null)}
+        />
         <nav className="pile-hit-map" aria-label="Open a project">
           {projects.map((project, index) => (
             <a
