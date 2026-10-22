@@ -4,7 +4,7 @@ const groups = [
   ['.manifesto', '.eyebrow, h2, .manifesto-grid > *, .manifesto-stats > div'],
   ['.projects-section', '.section-heading > *, .pile-slot'],
   ['.experience-section', '.section-heading > *, .timeline-game'],
-  ['.interests-section', '.section-heading > *, .deck-scene, .interest-legend li'],
+  ['.interests-section', '.section-heading > *, .deck-scene, .interest-panel-slot'],
 ]
 
 export default function PageMotion() {

@@ -129,14 +129,21 @@ img { max-width: 100%; }
 
 /* Interests */
 .interests-section { padding: clamp(6rem, 10vw, 10rem) clamp(1.2rem, 5vw, 5rem); background: #161614; color: var(--cream); }
-.deck-scene { position: relative; max-width: 78rem; height: clamp(16rem, 31vw, 28rem); margin: 7rem auto 4rem; perspective: 900px; }
-.skateboard { position: absolute; inset: 8% 4% 16%; border-radius: 48% 48% 24% 24% / 30% 30% 18% 18%; background: var(--cream); border: 5px solid var(--ink); box-shadow: inset 0 0 0 5px var(--orange), 25px 30px 0 rgba(0,0,0,.7); transform: rotate(-4deg) rotateX(12deg); overflow: hidden; }
-.skateboard::after { content: 'BUILD / FALL / LEARN / REPEAT'; position: absolute; left: 7%; right: 7%; bottom: 10%; padding-top: .7rem; border-top: 2px solid var(--ink); font: 600 clamp(.65rem, 1.3vw, 1.1rem) var(--display); letter-spacing: .12em; }
-.deck-sticker { position: absolute; display: grid; place-items: center; color: var(--ink); border: 3px solid var(--ink); box-shadow: 4px 5px 0 var(--ink); font: 700 clamp(.7rem, 1.8vw, 1.5rem) var(--display); }
-.sticker-python { width: 16%; aspect-ratio: 1.5; top: 16%; left: 12%; background: var(--lime); transform: rotate(-9deg); border-radius: 50%; }
-.sticker-guitar { width: 17%; aspect-ratio: 1; top: 19%; left: 38%; background: var(--orange); transform: rotate(7deg); clip-path: polygon(50% 0,100% 32%,82% 100%,18% 100%,0 32%); }
-.sticker-belt { width: 18%; height: 18%; top: 18%; right: 18%; color: var(--cream); background: var(--ink); transform: rotate(-5deg); }
-.sticker-volleyball { width: 11%; aspect-ratio: 1; bottom: 18%; right: 35%; background: var(--blue); border-radius: 50%; transform: rotate(8deg); }
+.deck-scene { position: relative; max-width: 78rem; height: clamp(18rem, 32vw, 29rem); margin: 6rem auto 3rem; perspective: 900px; }
+.skateboard { position: absolute; inset: 8% 4% 16%; border-radius: 48% 48% 24% 24% / 30% 30% 18% 18%; background: var(--cream); border: 5px solid var(--ink); box-shadow: inset 0 0 0 5px var(--orange), 25px 30px 0 rgba(0,0,0,.7); transform: rotate(-4deg) rotateX(12deg); overflow: visible; }
+.skateboard::after { content: 'BUILD / PLAY / LIFT / EXPLORE / REPEAT'; position: absolute; z-index: 0; left: 7%; right: 7%; bottom: 8%; padding-top: .7rem; border-top: 2px solid var(--ink); color: var(--ink); font: 600 clamp(.52rem, 1vw, .92rem) var(--display); letter-spacing: .1em; }
+.deck-sticker { --rotate: 0deg; position: absolute; z-index: 2; display: grid; grid-template-rows: 1fr auto; place-items: center; gap: .1rem; margin: 0; padding: .45rem; color: var(--ink); border: 3px solid var(--ink); box-shadow: 4px 5px 0 var(--ink); cursor: pointer; transform: rotate(var(--rotate)); transition: transform .38s cubic-bezier(.16,1,.3,1), box-shadow .38s cubic-bezier(.16,1,.3,1), filter .38s ease; }
+.deck-sticker svg { width: 70%; height: 70%; overflow: visible; fill: none; stroke: currentColor; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.deck-sticker span { font: 700 clamp(.42rem, .78vw, .72rem) var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.deck-sticker:hover, .deck-sticker:focus-visible, .deck-sticker.is-active { z-index: 8; transform: translateY(-12px) rotate(var(--rotate)) scale(1.1); box-shadow: 8px 12px 0 var(--ink); filter: saturate(1.15); }
+.deck-sticker:focus-visible { outline: 4px solid var(--blue); outline-offset: 4px; }
+.sticker-coding { --rotate: -9deg; width: 13%; aspect-ratio: 1.15; top: 15%; left: 10%; background: var(--lime); border-radius: 46% 54% 45% 55%; }
+.sticker-music { --rotate: 7deg; width: 12%; aspect-ratio: 1; top: 48%; left: 23%; background: var(--blue); border-radius: 50%; }
+.sticker-fitness { --rotate: -4deg; width: 13%; aspect-ratio: 1.35; top: 15%; left: 31%; background: var(--orange); border-radius: .35rem; }
+.sticker-volleyball { --rotate: 8deg; width: 10%; aspect-ratio: 1; top: 45%; left: 45%; background: #fff1c7; border-radius: 50%; }
+.sticker-travel { --rotate: -7deg; width: 14%; aspect-ratio: 1.3; top: 13%; left: 54%; background: #ef6f91; border-radius: 50% 44% 48% 42%; }
+.sticker-games { --rotate: 5deg; width: 13%; aspect-ratio: 1.25; top: 46%; left: 68%; background: var(--lime); border-radius: 42% 42% 50% 50%; }
+.sticker-photography { --rotate: -5deg; width: 11%; aspect-ratio: .9; top: 14%; right: 7%; background: var(--blue); border-radius: .3rem; }
 .deck-bolts { position: absolute; top: 46%; display: grid; grid-template-columns: repeat(2, .55rem); gap: 1.5rem; }
 .deck-bolts.left { left: 6%; } .deck-bolts.right { right: 6%; }
 .deck-bolts i { width: .55rem; height: .55rem; border-radius: 50%; background: var(--ink); }
@@ -144,9 +151,25 @@ img { max-width: 100%; }
 .truck.left { left: 20%; } .truck.right { right: 20%; }
 .truck i, .truck b { position: absolute; bottom: -1rem; width: 1.9rem; height: 1.9rem; background: var(--orange); border: 4px solid var(--ink); border-radius: 50%; }
 .truck i { left: -1rem; } .truck b { right: -1rem; }
-.interest-legend { max-width: 78rem; margin: 0 auto; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-.interest-legend li { min-height: 6rem; padding: 1rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; }
-.interest-legend span { color: var(--lime); font: .68rem var(--mono); }
+.interest-panel-slot { max-width: 78rem; min-height: clamp(19rem, 27vw, 24rem); margin: 0 auto; }
+.interest-panel-empty { min-height: 13rem; display: grid; place-content: center; padding: 2rem; border: 1px dashed rgba(240,235,223,.35); text-align: center; }
+.interest-panel-empty span { color: var(--lime); font: 600 .72rem var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.interest-panel-empty p { max-width: 34rem; margin: 1rem auto 0; color: rgba(240,235,223,.72); line-height: 1.6; }
+.interest-panel { position: relative; display: grid; grid-template-columns: minmax(14rem, .72fr) 1.28fr; min-height: 22rem; overflow: hidden; background: var(--cream); color: var(--ink); border: 3px solid var(--ink); box-shadow: 12px 12px 0 var(--orange); animation: interest-card-in .45s cubic-bezier(.16,1,.3,1) both; }
+@keyframes interest-card-in { from { opacity: 0; transform: translateY(18px) rotate(.4deg); } to { opacity: 1; transform: none; } }
+.interest-photo-placeholder { min-height: 21rem; display: grid; grid-template-rows: 1fr auto auto; place-items: center; gap: .5rem; padding: 2rem; color: var(--ink); background: var(--blue); border-right: 3px solid var(--ink); text-align: center; }
+.interest-photo-placeholder svg { width: min(9rem, 58%); fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.interest-photo-placeholder span { font: 600 clamp(1rem, 2vw, 1.5rem)/1.15 var(--display); letter-spacing: -.04em; }
+.interest-photo-placeholder small { font: 600 .58rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.interest-story-copy { align-self: center; padding: clamp(2rem, 5vw, 4.5rem); }
+.interest-story-copy .eyebrow { color: #536db1; }
+.interest-story-copy h3 { max-width: 15ch; margin: .65rem 0 1rem; font: 600 clamp(2rem, 4vw, 4rem)/.95 var(--display); letter-spacing: -.06em; }
+.interest-story-copy > p { max-width: 48rem; margin: 0 0 1.25rem; line-height: 1.65; }
+.interest-story-copy ul { display: grid; gap: .55rem; margin: 0; padding: 0; list-style: none; }
+.interest-story-copy li { position: relative; padding-left: 1.35rem; line-height: 1.5; }
+.interest-story-copy li::before { content: '↳'; position: absolute; left: 0; color: #536db1; font-weight: 700; }
+.interest-close { position: absolute; top: .8rem; right: .8rem; padding: .55rem .7rem; border: 2px solid var(--ink); background: var(--lime); color: var(--ink); font: 600 .62rem var(--mono); text-transform: uppercase; cursor: pointer; }
+.interest-close:hover { background: var(--orange); }
 
 /* Footer */
 .footer { padding: clamp(5rem, 9vw, 9rem) clamp(1.2rem, 5vw, 5rem) 2rem; }
@@ -282,8 +305,21 @@ img { max-width: 100%; }
   .checkpoint { width: 2.3rem; height: 2.3rem; }
   .checkpoint::after { left: 1rem; }
   .game-controls { left: 1rem; right: auto; }
-  .interest-legend { grid-template-columns: 1fr 1fr; }
-  .deck-scene { margin-top: 3rem; }
+  .deck-scene { height: 18rem; margin-top: 3rem; }
+  .skateboard { inset: 10% 1% 18%; border-width: 3px; box-shadow: inset 0 0 0 3px var(--orange), 13px 16px 0 rgba(0,0,0,.7); }
+  .deck-sticker { padding: .22rem; border-width: 2px; box-shadow: 2px 3px 0 var(--ink); }
+  .deck-sticker:hover, .deck-sticker:focus-visible, .deck-sticker.is-active { transform: translateY(-7px) rotate(var(--rotate)) scale(1.1); box-shadow: 4px 6px 0 var(--ink); }
+  .sticker-coding { width: 15%; left: 8%; }
+  .sticker-music { width: 14%; left: 22%; }
+  .sticker-fitness { width: 15%; left: 30%; }
+  .sticker-volleyball { width: 12%; left: 45%; }
+  .sticker-travel { width: 16%; left: 54%; }
+  .sticker-games { width: 15%; left: 68%; }
+  .sticker-photography { width: 13%; right: 5%; }
+  .deck-sticker span { display: none; }
+  .interest-panel { grid-template-columns: 1fr; }
+  .interest-photo-placeholder { min-height: 14rem; border-right: 0; border-bottom: 3px solid var(--ink); }
+  .interest-photo-placeholder svg { width: 7rem; }
   .truck i, .truck b { width: 1.2rem; height: 1.2rem; bottom: -.5rem; border-width: 2px; }
   .footer-bottom { flex-direction: column; gap: .5rem; }
   .case-meta { grid-template-columns: 1fr; }
