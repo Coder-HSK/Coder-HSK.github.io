@@ -172,7 +172,7 @@ export default function InterestDeck() {
           <div className="truck right" aria-hidden="true"><i /><b /></div>
         </div>
 
-        <div className={`interest-panel-slot${active ? ' has-story' : ''}`} id="interest-story" aria-live="polite">
+        <div className={`interest-panel-slot${active ? ` has-story from-${active.id}` : ''}`} id="interest-story" aria-live="polite">
           {active ? (
             <article className="interest-panel" key={active.id}>
               <div className="interest-photo-placeholder" aria-label={`${active.label} photo placeholder`}>
