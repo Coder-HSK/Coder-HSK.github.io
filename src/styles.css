@@ -51,7 +51,6 @@ img { max-width: 100%; }
 .hero-line { display: block; overflow: hidden; padding: .06em .04em .1em; }
 .hero-word { display: block; }
 .hero-last { text-align: right; color: var(--lime); }
-.hero-cross { position: absolute; top: 42%; left: 49%; color: var(--orange); font: 300 clamp(3rem, 8vw, 8rem)/1 var(--display); }
 .hero-footer { margin-top: clamp(2rem, 6vh, 5rem); display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; }
 .hero-meta { max-width: 36rem; margin: 0; font-size: clamp(1rem, 1.7vw, 1.35rem); line-height: 1.45; }
 .hero-actions { display: flex; gap: .65rem; }
@@ -240,7 +239,6 @@ img { max-width: 100%; }
   .nav-shell.nav-light nav.is-open { color: var(--cream); }
   .hero { padding-top: 9rem; }
   .hero h1 { font-size: clamp(2.75rem, 12.8vw, 6rem); }
-  .hero-cross { top: 36%; }
   .hero-footer, .manifesto-grid, .case-hero > div, .case-text-grid, .resume-layout { grid-template-columns: 1fr; }
   .hero-footer { align-items: start; }
   .hero-scroll-cue { display: none; }

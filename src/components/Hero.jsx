@@ -16,14 +16,11 @@ export default function Hero() {
       gsap.set(first, { xPercent: -118, force3D: true })
       gsap.set(last, { xPercent: 118, force3D: true })
       gsap.set(supporting, { autoAlpha: 0, y: 30, force3D: true })
-      gsap.set('.hero-cross', { scale: 0, rotation: -100, force3D: true })
-
       const timeline = gsap.timeline({ delay: 0.25, defaults: { ease: 'power3.inOut' } })
       timeline
         .to(first, { xPercent: 0, duration: 4.85 })
         .to(last, { xPercent: 0, duration: 4.85 }, '-=3.6')
         .to(supporting, { autoAlpha: 1, y: 0, duration: 4.15, stagger: 0.18, ease: 'power3.out' }, '-=3.35')
-        .to('.hero-cross', { scale: 1, rotation: 0, duration: 4.05, ease: 'back.out(1.2)' }, '-=4.05')
     }, root)
     return () => context.revert()
   }, [])
@@ -36,7 +33,6 @@ export default function Hero() {
         <span className="hero-line hero-first"><span className="hero-word">HITENDRA</span></span>
         <span className="hero-line hero-last"><span className="hero-word">ANNAVARAPU</span></span>
       </h1>
-      <span className="hero-cross" aria-hidden="true">+</span>
       <div className="hero-footer">
         <p className="hero-meta">I build systems that move, measure, teach, and occasionally turn into games.</p>
         <div className="hero-actions">
