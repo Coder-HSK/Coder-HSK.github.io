@@ -22,9 +22,9 @@ export default function ExperienceGame() {
   return (
     <section className="experience-section" id="experience" ref={sectionRef} aria-labelledby="experience-title">
       <div className="section-heading">
-        <p className="eyebrow">Experience / playable timeline</p>
-        <h2 id="experience-title">Every build unlocks the next.</h2>
-        <p>Use the arrows or checkpoint buttons to move through the timeline.</p>
+        <p className="eyebrow">Work experience / playable timeline</p>
+        <h2 id="experience-title">Every role unlocks the next.</h2>
+        <p>Move the character across the platform to explore current work, research, leadership, and engineering roles.</p>
       </div>
       <div className="timeline-game" tabIndex="0" aria-label={`Timeline checkpoint ${position + 1} of ${timeline.length}: ${entry.title}`}>
         <div className="game-sky" aria-hidden="true"><span>··</span><span>+</span><span>·</span></div>
@@ -46,6 +46,7 @@ export default function ExperienceGame() {
               aria-current={index === position ? 'step' : undefined}
             >
               <span>{index + 1}</span>
+              <small aria-hidden="true">{item.title}</small>
             </button>
           ))}
         </div>

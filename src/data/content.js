@@ -38,53 +38,53 @@ export const projects = [
 ]
 
 export const games = [
-  { name: 'Number Guessing Game', level: '01', tech: 'Python' },
-  { name: 'Hangman', level: '02', tech: 'Python' },
-  { name: 'Rock Paper Scissors', level: '03', tech: 'Python' },
-  { name: 'Blackjack', level: '04', tech: 'Python' },
-  { name: 'Maze Generator', level: '05', tech: 'Python' },
-  { name: 'Trivia Quiz', level: '06', tech: 'Python + JSON' },
-  { name: 'Snake', level: '07', tech: 'Python' },
-  { name: 'Space Invaders', level: '08', tech: 'Python' },
-  { name: 'Platformer', level: '09', tech: 'Python' },
+  { name: 'Number Guessing Game', level: '01', tech: 'Python', file: 'Game_1.html', playable: true },
+  { name: 'Hangman', level: '02', tech: 'Python', file: 'Game_2.html', playable: true },
+  { name: 'Rock Paper Scissors', level: '03', tech: 'Python', file: 'Game_3.html', playable: true },
+  { name: 'Blackjack', level: '04', tech: 'Python', file: 'Game_4_.html', playable: true },
+  { name: 'Maze Generator', level: '05', tech: 'Python', file: 'Game_5.html', playable: true },
+  { name: 'Trivia Quiz', level: '06', tech: 'Python + JSON', file: 'Game_6.html', playable: true },
+  { name: 'Snake', level: '07', tech: 'Python + pygame', file: 'Game_7.html', playable: false },
+  { name: 'Space Invaders', level: '08', tech: 'Python + pygame', file: 'Game_8.html', playable: false },
+  { name: 'Platformer', level: '09', tech: 'Python + pygame', file: 'Game_9.html', playable: false },
 ]
 
 export const timeline = [
   {
-    label: 'Origin',
-    title: 'Mechminds',
-    role: 'Founder & President',
-    text: 'Built a high-school robotics club from scratch and led sessions on robotics fundamentals and prototyping.',
+    label: '2022—Present',
+    title: 'Taekwondo',
+    role: 'USA Martial Arts · Junior Instructor',
+    text: 'Teach technique, discipline, and conditioning to mixed-age classes of up to 34 students after earning a Black Belt.',
   },
   {
-    label: '2022—Now',
-    title: 'USA Martial Arts',
-    role: 'Junior Instructor',
-    text: 'Instruct mixed-age classes of up to 34 students after earning a Black Belt.',
-  },
-  {
-    label: 'Internship',
-    title: 'Pinnacle',
-    role: 'Software Intern',
-    text: 'Built machine-learning models for spam detection, genre classification, and price prediction.',
-  },
-  {
-    label: 'HackWesTX 2026',
-    title: 'Campfire',
-    role: '24-hour team build',
-    text: 'Placed Top 5 and earned Best Use of Auth0 with a team of four.',
-  },
-  {
-    label: 'Fall 2026—Now',
+    label: 'Present',
     title: 'Red Raider Racing',
     role: 'Aerodynamics Team',
     text: 'Model race-car components in SolidWorks and evaluate airflow performance in SimScale.',
   },
   {
-    label: 'Fall 2026—Now',
-    title: 'Space Raiders + RATS',
-    role: 'Aerospace & Robotics',
-    text: 'Contribute to student-led rocket and competitive robotics projects spanning design, simulation, testing, and code.',
+    label: 'Present',
+    title: 'Aerospace + Robotics',
+    role: 'Raider Aerospace Society · RATS Robotics',
+    text: 'Contribute to student-led aerospace and competitive robotics work across design, simulation, testing, and code.',
+  },
+  {
+    label: 'Present',
+    title: 'Research with Dr. Morshed',
+    role: 'Cyber-Physical Systems research',
+    text: 'Contribute to current research with Dr. Bashir Morshed in Texas Tech’s Cyber-Physical Systems group.',
+  },
+  {
+    label: 'Present',
+    title: 'Research with Tristan Shah',
+    role: 'Dr. Stas Tiomkin’s research group',
+    text: 'Contribute to research alongside PhD student Tristan Shah under Dr. Stas Tiomkin.',
+  },
+  {
+    label: 'Present',
+    title: 'Google Developer Group',
+    role: 'Marketing Officer',
+    text: 'Serve as Marketing Officer for the student developer community and its technical events.',
   },
 ]
 

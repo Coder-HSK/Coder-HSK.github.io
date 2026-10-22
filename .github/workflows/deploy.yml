@@ -24,6 +24,11 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run build
+      - name: Include original playable Python projects
+        run: |
+          cp -R Games dist/Games
+          cp -R Games.py dist/Games.py
+          cp styles.css dist/styles.css
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

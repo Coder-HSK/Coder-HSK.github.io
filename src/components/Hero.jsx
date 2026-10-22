@@ -9,13 +9,21 @@ export default function Hero() {
     if (reduce || !gsap) return undefined
 
     const context = gsap.context(() => {
-      gsap.set('.hero-word', { force3D: true })
-      const timeline = gsap.timeline({ defaults: { ease: 'power3.inOut' } })
+      const first = '.hero-first .hero-word'
+      const last = '.hero-last .hero-word'
+      const supporting = '.hero-kicker, .hero-meta, .hero-actions, .hero-scroll-cue'
+
+      gsap.set(first, { xPercent: -118, force3D: true })
+      gsap.set(last, { xPercent: 118, force3D: true })
+      gsap.set(supporting, { autoAlpha: 0, y: 30, force3D: true })
+      gsap.set('.hero-cross', { scale: 0, rotation: -100, force3D: true })
+
+      const timeline = gsap.timeline({ delay: 0.25, defaults: { ease: 'power3.inOut' } })
       timeline
-        .from('.hero-first .hero-word', { xPercent: -112, duration: 1.85 })
-        .from('.hero-last .hero-word', { xPercent: 112, duration: 1.85 }, '-=1.05')
-        .from('.hero-kicker, .hero-meta, .hero-actions, .hero-scroll-cue', { opacity: 0, y: 30, duration: 1.15, stagger: 0.14, ease: 'power3.out' }, '-=0.55')
-        .from('.hero-cross', { scale: 0, rotation: -100, duration: 1.05, ease: 'back.out(1.4)' }, '-=1.05')
+        .to(first, { xPercent: 0, duration: 4.85 })
+        .to(last, { xPercent: 0, duration: 4.85 }, '-=3.6')
+        .to(supporting, { autoAlpha: 1, y: 0, duration: 4.15, stagger: 0.18, ease: 'power3.out' }, '-=3.35')
+        .to('.hero-cross', { scale: 1, rotation: 0, duration: 4.05, ease: 'back.out(1.2)' }, '-=4.05')
     }, root)
     return () => context.revert()
   }, [])

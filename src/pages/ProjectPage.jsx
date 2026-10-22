@@ -58,7 +58,10 @@ function CampfireCase() {
 }
 
 function GamesCase() {
-  const [selected, setSelected] = useState(8)
+  const [selected, setSelected] = useState(0)
+  const activeGame = games[selected]
+  const gameUrl = `${import.meta.env.BASE_URL}Games/${activeGame.file}`
+
   return (
     <>
       <div className="arcade-marquee"><span>INSERT CURIOSITY</span><strong>PYTHON ARCADE</strong><i>PLAYER 01 · READY</i></div>
@@ -69,7 +72,15 @@ function GamesCase() {
           </button>
         ))}
       </section>
-      <div className="arcade-status" aria-live="polite"><span>NOW SELECTED</span><strong>{games[selected].name}</strong><p>Nine completed projects chart a path from basic input and conditionals to object-oriented game loops, state, collision, and arcade mechanics.</p></div>
+      <div className="arcade-status" aria-live="polite"><span>NOW SELECTED</span><strong>{activeGame.name}</strong><p>{activeGame.playable ? 'Playable in the browser through the same Python terminal used in the original portfolio.' : 'This pygame project needs a local graphics window; its original project page and source notes are shown below.'}</p></div>
+      <section className="python-console" aria-labelledby="python-console-title">
+        <div className="python-console-bar">
+          <div><i /><i /><i /></div>
+          <span id="python-console-title">{activeGame.file} / {activeGame.playable ? 'browser-playable' : 'source walkthrough'}</span>
+          <a href={gameUrl} target="_blank" rel="noreferrer">Open full screen ↗</a>
+        </div>
+        <iframe key={activeGame.file} src={gameUrl} title={`${activeGame.name} interactive project`} loading="lazy" />
+      </section>
       <a className="button button-dark" href="https://coder-hsk.github.io/Project_2.html" target="_blank" rel="noreferrer">Open the original game archive ↗</a>
     </>
   )
