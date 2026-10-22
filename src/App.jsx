@@ -37,7 +37,27 @@ export default function App() {
     return () => document.removeEventListener('click', onClick)
   }, [])
 
-  if (path === '/resume') return <ResumePage />
-  if (path.startsWith('/projects/')) return <ProjectPage slug={path.split('/')[2]} />
-  return <Home />
+  const skipToContent = (event) => {
+    event.preventDefault()
+    const main = document.getElementById('main')
+    if (!main) return
+
+    main.tabIndex = -1
+    main.focus({ preventScroll: true })
+    main.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'start',
+    })
+  }
+
+  let page = <Home />
+  if (path === '/resume') page = <ResumePage />
+  if (path.startsWith('/projects/')) page = <ProjectPage slug={path.split('/')[2]} />
+
+  return (
+    <>
+      <a className="skip-link" href="#main" onClick={skipToContent}>Skip to content</a>
+      {page}
+    </>
+  )
 }
