@@ -2,6 +2,19 @@ import { useEffect, useState } from 'react'
 
 const interests = [
   {
+    id: 'cooking',
+    label: 'Cooking',
+    kicker: 'The original dream never left the kitchen.',
+    className: 'sticker-cooking',
+    icon: 'chef',
+    copy: 'Before coding, engineering, and everything else, my first real dream was to become a chef. The career plan changed, but cooking stayed—and it became the hobby I enjoy more than any other.',
+    facts: [
+      'Name a cuisine and I will happily take on the challenge.',
+      'I love experimenting until every flavor feels exactly right.',
+      'The kitchen is where creativity becomes something everyone can share.',
+    ],
+  },
+  {
     id: 'coding',
     label: 'Coding',
     kicker: 'Always building. Usually debugging.',
@@ -77,6 +90,9 @@ const interests = [
 function InterestIcon({ type }) {
   const shared = { viewBox: '0 0 100 100', 'aria-hidden': true, focusable: 'false' }
 
+  if (type === 'chef') return (
+    <svg {...shared}><path d="M29 44c-10-2-15-10-12-18 3-7 11-10 19-6 3-8 10-13 19-13 10 0 18 6 20 15 8-3 16 1 18 9 2 9-5 16-15 16H29Z" /><path d="M29 43v38h49V43M38 60v13m16-13v13m15-13v13M28 81h51" /></svg>
+  )
   if (type === 'computer') return (
     <svg {...shared}><rect x="14" y="16" width="72" height="53" rx="5" /><path d="M23 26h54v32H23zM36 83h28M43 69l-3 14m17-14 3 14" /><path d="m30 39 8 7-8 7m14 0h15" /></svg>
   )
@@ -143,7 +159,7 @@ export default function InterestDeck() {
 
       <div className="interest-showcase">
         <div className="deck-scene">
-          <div className="skateboard" aria-label="A tall skateboard covered with seven interactive interest stickers">
+          <div className="skateboard" aria-label="A horizontal skateboard covered with eight interactive interest stickers">
             <div className="deck-texture" aria-hidden="true" />
             <div className="deck-bolts left" aria-hidden="true"><i /><i /><i /><i /></div>
             <div className="deck-bolts right" aria-hidden="true"><i /><i /><i /><i /></div>
@@ -195,7 +211,7 @@ export default function InterestDeck() {
           ) : (
             <div className="interest-panel-empty">
               <span>Pick a sticker</span>
-              <p>Seven interests. One skateboard. Absolutely no sensible filing system.</p>
+              <p>Eight interests. One skateboard. Absolutely no sensible filing system.</p>
             </div>
           )}
         </div>
