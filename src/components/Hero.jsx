@@ -9,12 +9,13 @@ export default function Hero() {
     if (reduce || !gsap) return undefined
 
     const context = gsap.context(() => {
-      const timeline = gsap.timeline({ defaults: { ease: 'power4.out' } })
+      gsap.set('.hero-word', { force3D: true })
+      const timeline = gsap.timeline({ defaults: { ease: 'power3.inOut' } })
       timeline
-        .from('.hero-first .hero-word', { xPercent: -110, duration: 1.15 })
-        .from('.hero-last .hero-word', { xPercent: 110, duration: 1.15 }, '-=0.86')
-        .from('.hero-kicker, .hero-meta, .hero-actions, .hero-scroll-cue', { opacity: 0, y: 24, duration: 0.72, stagger: 0.09 }, '-=0.5')
-        .from('.hero-cross', { scale: 0, rotation: -90, duration: 0.7 }, '-=0.75')
+        .from('.hero-first .hero-word', { xPercent: -112, duration: 1.85 })
+        .from('.hero-last .hero-word', { xPercent: 112, duration: 1.85 }, '-=1.05')
+        .from('.hero-kicker, .hero-meta, .hero-actions, .hero-scroll-cue', { opacity: 0, y: 30, duration: 1.15, stagger: 0.14, ease: 'power3.out' }, '-=0.55')
+        .from('.hero-cross', { scale: 0, rotation: -100, duration: 1.05, ease: 'back.out(1.4)' }, '-=1.05')
     }, root)
     return () => context.revert()
   }, [])

@@ -4,10 +4,12 @@ import ProjectPile from '../components/ProjectPile'
 import ExperienceGame from '../components/ExperienceGame'
 import InterestDeck from '../components/InterestDeck'
 import Footer from '../components/Footer'
+import PageMotion from '../components/PageMotion'
 
 export default function Home() {
   return (
     <>
+      <PageMotion />
       <Nav />
       <main id="main">
         <Hero />

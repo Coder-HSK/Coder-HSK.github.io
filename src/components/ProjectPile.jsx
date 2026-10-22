@@ -15,26 +15,28 @@ export default function ProjectPile() {
       </div>
       <div className="project-pile" role="list">
         {projects.map((project, index) => (
-          <article
-            className={`pile-card tone-${project.accent} ${active === index ? 'is-active' : ''}`}
+          <div
+            className={`pile-slot ${active === index ? 'is-active' : ''}`}
             style={{ '--i': index }}
             key={project.slug}
             role="listitem"
             onMouseEnter={() => setActive(index)}
             onMouseLeave={() => setActive(null)}
           >
-            <button className="card-hit" type="button" onClick={() => toggle(index)} aria-expanded={active === index} aria-label={`Preview ${project.title}`} />
-            <div className="card-topline"><span>{project.number}</span><span>Case study ↗</span></div>
-            <div>
-              <p className="card-kicker">{project.kicker}</p>
-              <h3>{project.title}</h3>
-              <p className="card-summary">{project.summary}</p>
-            </div>
-            <div className="card-bottomline">
-              <ul aria-label="Technologies">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
-              <a href={`#/projects/${project.slug}`} data-route onFocus={() => setActive(index)}>View project <span aria-hidden="true">↗</span></a>
-            </div>
-          </article>
+            <article className={`pile-card tone-${project.accent}`}>
+              <button className="card-hit" type="button" onClick={() => toggle(index)} aria-expanded={active === index} aria-label={`Preview ${project.title}`} />
+              <div className="card-topline"><span>{project.number}</span><span>Case study ↗</span></div>
+              <div>
+                <p className="card-kicker">{project.kicker}</p>
+                <h3>{project.title}</h3>
+                <p className="card-summary">{project.summary}</p>
+              </div>
+              <div className="card-bottomline">
+                <ul aria-label="Technologies">{project.tags.map((tag) => <li key={tag}>{tag}</li>)}</ul>
+                <a href={`#/projects/${project.slug}`} data-route onFocus={() => setActive(index)}>View project <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+          </div>
         ))}
       </div>
     </section>
