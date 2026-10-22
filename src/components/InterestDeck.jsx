@@ -4,43 +4,42 @@ const interests = [
   {
     id: 'coding',
     label: 'Coding',
-    kicker: 'Compiles eventually.',
+    kicker: 'Always building. Usually debugging.',
     className: 'sticker-coding',
     icon: 'computer',
-    copy: 'I like building things, breaking them in oddly specific ways, and learning enough to put them back together better.',
+    copy: 'Coding is where curiosity turns into something I can click, play, or improve. I enjoy the whole cycle: learning a tool, breaking an idea, debugging it, and finally watching the pieces cooperate.',
     facts: [
-      'Currently learning C.',
-      'Intermediate with Python.',
-      'HTML and CSS are my favorite creative playground.',
-      'Beginner territory: JavaScript, React, and JSX.',
+      'Learning C and getting comfortable closer to the machine.',
+      'Intermediate in Python, especially for practical projects and games.',
+      'HTML and CSS are my creative playground; JavaScript, React, and JSX are newer territory.',
     ],
   },
   {
     id: 'music',
     label: 'Music',
-    kicker: 'Soundtrack required.',
+    kicker: 'Everything needs a soundtrack.',
     className: 'sticker-music',
     icon: 'headphones',
-    copy: 'Everything I do needs music in the background. That obsession eventually convinced me to stop only listening and start learning too.',
-    facts: ['Learning electric guitar.', 'Learning electric keyboard.', 'Silence is fine. A great playlist is better.'],
+    copy: 'Music follows me through work, workouts, travel, and late-night debugging. Eventually, listening was not enough, so I bought instruments and started learning how to make some noise of my own.',
+    facts: ['Currently learning electric guitar.', 'Also learning electric keyboard.', 'The right playlist can rescue almost any task.'],
   },
   {
     id: 'fitness',
     label: 'Fitness',
-    kicker: 'Ctrl + Alt + Lift.',
+    kicker: 'The reset button has dumbbells.',
     className: 'sticker-fitness',
     icon: 'dumbbell',
-    copy: 'If something goes wrong—or I am simply having a rough day—the gym is my reset button. I go regularly, not just when life throws an error.',
-    facts: ['Gym regular.', 'Best stress debugger I have found.', 'The room where I feel capable of taking on anything.'],
+    copy: 'The gym is where I go when life feels heavy, confusing, or simply annoying. Training regularly clears my head, rebuilds my confidence, and reminds me that difficult things become manageable one rep at a time.',
+    facts: ['A regular part of my routine.', 'My favorite way to debug a bad day.', 'The place where I feel ready to take on anything.'],
   },
   {
     id: 'volleyball',
     label: 'Volleyball',
-    kicker: 'Friendship, gravity, questionable dives.',
+    kicker: 'Good rallies. Better company.',
     className: 'sticker-volleyball',
     icon: 'volleyball',
-    copy: 'I love playing volleyball with friends. The spark came from Haikyu!!, a high-energy, spoiler-free story about determined high-school players learning teamwork, timing, and how to challenge much bigger opponents.',
-    facts: ['Best played with friends.', 'Inspired by Haikyu!!', 'Yes, every good rally feels cinematic.'],
+    copy: 'Volleyball is at its best when I am playing with friends and everyone refuses to let the ball touch the floor. My interest grew from Haikyu!!, an energetic anime about teamwork, persistence, and ambitious high-school players.',
+    facts: ['Best enjoyed with a competitive group of friends.', 'Inspired by Haikyu!!—no spoilers required.', 'Every long rally feels more dramatic than it probably is.'],
   },
   {
     id: 'travel',
@@ -48,30 +47,30 @@ const interests = [
     kicker: 'Every trip becomes a side quest.',
     className: 'sticker-travel',
     icon: 'car',
-    copy: 'When I visit somewhere new, I explore until curiosity is completely satisfied—or until my feet file a formal complaint.',
-    facts: ['Dream stops: Japan, Germany, and Paris.', 'Long-term quest: see all seven wonders.', 'No interesting side street left behind.'],
+    copy: 'I do not like visiting a place just to say I was there. I want to wander, explore, try things, and keep going until curiosity is satisfied—or my feet officially resign.',
+    facts: ['Dream stops include Japan, Germany, and Paris.', 'Long-term mission: visit all seven wonders.', 'Interesting side streets are mandatory side quests.'],
   },
   {
     id: 'games',
     label: 'Games',
-    kicker: 'Side quests are the main quest.',
+    kicker: 'Story mode first. Sleep later.',
     className: 'sticker-games',
     icon: 'controller',
-    copy: 'Story-mode games are my favorite kind of disappearing act. Valorant and Fortnite are the reliable go-tos—they helped make lockdown a lot more survivable.',
+    copy: 'Story-driven games are my favorite way to disappear into another world for a while. Valorant and Fortnite remain my reliable multiplayer choices because, honestly, they helped make lockdown much more survivable.',
     facts: [
       'Finished: RE9, Stray, Red Dead Redemption 2, and Hollow Knight.',
-      'Next up: Black Myth: Wukong, Marvel’s Spider-Man, Uncharted 4, Ghost of Tsushima, and Ghost of Yōtei.',
-      'Backlog status: thriving and slightly dangerous.',
+      'Wishlist: Black Myth: Wukong, Marvel’s Spider-Man, Uncharted 4, Ghost of Tsushima, and Ghost of Yōtei.',
+      'Current backlog status: healthy, ambitious, and slightly dangerous.',
     ],
   },
   {
     id: 'photography',
     label: 'Photography',
-    kicker: 'Evidence that I leave the keyboard.',
+    kicker: 'Catching moments before they pose.',
     className: 'sticker-photography',
     icon: 'polaroid',
-    copy: 'I am still an amateur, but I love being the person behind the camera—catching raw emotion, small in-between moments, and landscapes that refuse to look ordinary.',
-    facts: ['People, emotion, and unplanned moments.', 'Landscapes whenever the view demands it.', 'Professional level: enthusiastic camera person.'],
+    copy: 'I am still an amateur, but I love being the person behind the camera. The best photographs preserve raw emotion, unnoticed in-between moments, and landscapes that somehow look even better when nobody is trying too hard.',
+    facts: ['Drawn to people, emotion, and unplanned moments.', 'Always ready when a landscape demands a photo.', 'Official role: enthusiastic volunteer camera person.'],
   },
 ]
 
@@ -175,11 +174,6 @@ export default function InterestDeck() {
         <div className={`interest-panel-slot${active ? ` has-story from-${active.id}` : ''}`} id="interest-story" aria-live="polite">
           {active ? (
             <article className="interest-panel" key={active.id}>
-              <div className="interest-photo-placeholder" aria-label={`${active.label} photo placeholder`}>
-                <InterestIcon type={active.icon} />
-                <span>Your {active.label.toLowerCase()} photo goes here</span>
-                <small>Photo evidence incoming</small>
-              </div>
               <div className="interest-story-copy">
                 <p className="eyebrow">{active.label} / personal file</p>
                 <h3>{active.kicker}</h3>
