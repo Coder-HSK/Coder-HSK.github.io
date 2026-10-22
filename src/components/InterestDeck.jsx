@@ -142,63 +142,69 @@ export default function InterestDeck() {
         <p>Hover, focus, or tap a sticker. Every one has a story hiding underneath.</p>
       </div>
 
-      <div className="deck-scene">
-        <div className="skateboard" aria-label="A skateboard covered with seven interactive interest stickers">
-          <div className="deck-bolts left" aria-hidden="true"><i /><i /><i /><i /></div>
-          <div className="deck-bolts right" aria-hidden="true"><i /><i /><i /><i /></div>
-          {interests.map((interest) => (
-            <button
-              type="button"
-              className={`deck-sticker ${interest.className}${activeId === interest.id ? ' is-active' : ''}`}
-              key={interest.id}
-              aria-label={`Open ${interest.label} story`}
-              aria-expanded={activeId === interest.id}
-              aria-controls="interest-story"
-              onPointerEnter={() => setActiveId(interest.id)}
-              onFocus={() => setActiveId(interest.id)}
-              onClick={() => toggleInterest(interest.id)}
-            >
-              <InterestIcon type={interest.icon} />
-              <span>{interest.label}</span>
-            </button>
-          ))}
-        </div>
-        <div className="truck left" aria-hidden="true"><i /><b /></div>
-        <div className="truck right" aria-hidden="true"><i /><b /></div>
-      </div>
-
-      <div className={`interest-panel-slot${active ? ' has-story' : ''}`} id="interest-story" aria-live="polite">
-        {active ? (
-          <article className="interest-panel" key={active.id}>
-            <div className="interest-photo-placeholder" aria-label={`${active.label} photo placeholder`}>
-              <InterestIcon type={active.icon} />
-              <span>Your {active.label.toLowerCase()} photo goes here</span>
-              <small>Photo evidence incoming</small>
-            </div>
-            <div className="interest-story-copy">
-              <p className="eyebrow">{active.label} / personal file</p>
-              <h3>{active.kicker}</h3>
-              <p>{active.copy}</p>
-              <ul>
-                {active.facts.map((fact) => <li key={fact}>{fact}</li>)}
-              </ul>
-            </div>
-            <button
-              className="interest-close"
-              type="button"
-              aria-label={`Close ${active.label} story`}
-              onClick={() => {
-                setActiveId(null)
-                setPinned(false)
-              }}
-            >Close ×</button>
-          </article>
-        ) : (
-          <div className="interest-panel-empty">
-            <span>Pick a sticker</span>
-            <p>Seven interests. One skateboard. Absolutely no sensible filing system.</p>
+      <div className="interest-showcase">
+        <div className="deck-scene">
+          <div className="skateboard" aria-label="A tall skateboard covered with seven interactive interest stickers">
+            <div className="deck-texture" aria-hidden="true" />
+            <div className="deck-bolts left" aria-hidden="true"><i /><i /><i /><i /></div>
+            <div className="deck-bolts right" aria-hidden="true"><i /><i /><i /><i /></div>
+            <span className="deck-tag tag-build" aria-hidden="true">BUILD</span>
+            <span className="deck-tag tag-play" aria-hidden="true">PLAY</span>
+            <span className="deck-tag tag-roam" aria-hidden="true">ROAM</span>
+            {interests.map((interest) => (
+              <button
+                type="button"
+                className={`deck-sticker ${interest.className}${activeId === interest.id ? ' is-active' : ''}`}
+                key={interest.id}
+                aria-label={`Open ${interest.label} story`}
+                aria-expanded={activeId === interest.id}
+                aria-controls="interest-story"
+                onPointerEnter={() => setActiveId(interest.id)}
+                onFocus={() => setActiveId(interest.id)}
+                onClick={() => toggleInterest(interest.id)}
+              >
+                <InterestIcon type={interest.icon} />
+                <span>{interest.label}</span>
+              </button>
+            ))}
           </div>
-        )}
+          <div className="truck left" aria-hidden="true"><i /><b /></div>
+          <div className="truck right" aria-hidden="true"><i /><b /></div>
+        </div>
+
+        <div className={`interest-panel-slot${active ? ' has-story' : ''}`} id="interest-story" aria-live="polite">
+          {active ? (
+            <article className="interest-panel" key={active.id}>
+              <div className="interest-photo-placeholder" aria-label={`${active.label} photo placeholder`}>
+                <InterestIcon type={active.icon} />
+                <span>Your {active.label.toLowerCase()} photo goes here</span>
+                <small>Photo evidence incoming</small>
+              </div>
+              <div className="interest-story-copy">
+                <p className="eyebrow">{active.label} / personal file</p>
+                <h3>{active.kicker}</h3>
+                <p>{active.copy}</p>
+                <ul>
+                  {active.facts.map((fact) => <li key={fact}>{fact}</li>)}
+                </ul>
+              </div>
+              <button
+                className="interest-close"
+                type="button"
+                aria-label={`Close ${active.label} story`}
+                onClick={() => {
+                  setActiveId(null)
+                  setPinned(false)
+                }}
+              >Close ×</button>
+            </article>
+          ) : (
+            <div className="interest-panel-empty">
+              <span>Pick a sticker</span>
+              <p>Seven interests. One skateboard. Absolutely no sensible filing system.</p>
+            </div>
+          )}
+        </div>
       </div>
     </section>
   )
