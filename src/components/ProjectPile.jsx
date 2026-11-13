@@ -8,15 +8,15 @@ export default function ProjectPile() {
   return (
     <section className="projects-section" id="work" aria-labelledby="work-title">
       <div className="section-heading section-heading-dark">
-        <p className="eyebrow">Selected work / 04</p>
+        <p className="eyebrow">Selected work / {String(projects.length).padStart(2, '0')}</p>
         <h2 id="work-title">Open the box.</h2>
         <p>Hover, focus, or tap a card to pull it from the pile.</p>
       </div>
-      <div className={`project-pile ${active !== null ? 'has-active' : ''}`} role="list" onPointerLeave={() => setActive(null)}>
+      <div className={`project-pile ${active !== null ? 'has-active' : ''}`} style={{ '--project-count': projects.length }} role="list" onPointerLeave={() => setActive(null)}>
         {projects.map((project, index) => (
           <div
             className={`pile-slot ${active === index ? 'is-active' : ''}`}
-            style={{ '--i': index }}
+            style={{ '--i': index, '--pile-center': (projects.length - 1) / 2 }}
             key={project.slug}
             role="listitem"
           >
