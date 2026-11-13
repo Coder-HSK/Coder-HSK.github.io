@@ -1,0 +1,113 @@
+/* Photo gallery for My First ECE Projects.
+   Uses the portfolio's existing Python arcade cards and case-study styles. */
+.ece-gallery-viewer {
+  background: #121716;
+  display: grid;
+  place-items: center;
+  min-height: clamp(16rem, 42vw, 43rem);
+  overflow: hidden;
+}
+.ece-gallery-viewer > a {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  max-height: 45rem;
+  cursor: zoom-in;
+}
+.ece-gallery-viewer img {
+  display: block;
+  width: 100%;
+  max-height: 45rem;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  transition: transform 280ms ease;
+}
+.ece-gallery-viewer > a:hover img { transform: scale(1.025); }
+.ece-gallery-missing {
+  padding: 6rem 2rem;
+  color: #f0ebdf;
+  font: .8rem var(--mono);
+  text-align: center;
+}
+.ece-gallery-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+  color: #f0ebdf;
+  border-top: 1px solid rgba(240,235,223,.15);
+}
+.ece-gallery-index { font: .68rem var(--mono); color: #c3e2e1; text-transform: uppercase; letter-spacing: .09em; }
+.ece-gallery-toolbar p { margin: .65rem 0 0; max-width: 55rem; line-height: 1.5; }
+.ece-gallery-arrows { flex-shrink: 0; display: flex; gap: .5rem; }
+.ece-gallery-arrows button {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid #788b85;
+  background: #1c2926;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.ece-gallery-arrows button:hover,
+.ece-gallery-arrows button:focus-visible { background: #c3e2e1; color: #101715; }
+.ece-gallery-thumbs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: .75rem;
+  padding: 1rem 2rem 1.5rem;
+}
+.ece-gallery-thumbs button {
+  padding: 0;
+  border: 2px solid rgba(240,235,223,.2);
+  background: #222b2a;
+  cursor: pointer;
+  color: #f0ebdf;
+  position: relative;
+  overflow: hidden;
+}
+.ece-gallery-thumbs button.selected,
+.ece-gallery-thumbs button:focus-visible { border-color: #c3e2e1; outline: 1px solid #c3e2e1; outline-offset: 3px; }
+.ece-gallery-thumbs img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  opacity: .75;
+  transition: opacity .2s;
+}
+.ece-gallery-thumbs button.selected img,
+.ece-gallery-thumbs button:hover img { opacity: 1; }
+.ece-gallery-thumbs span {
+  position: absolute;
+  left: .5rem;
+  bottom: .5rem;
+  padding: .25rem .4rem;
+  background: rgba(10,10,9,.85);
+  font: .65rem var(--mono);
+}
+.ece-gallery-notes {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 2rem;
+  padding: 2rem;
+  color: #f0ebdf;
+  border-top: 1px solid rgba(240,235,223,.2);
+}
+.ece-gallery-notes .eyebrow { color: #c3e2e1; }
+.ece-gallery-notes h2 { margin: .6rem 0 0; font: 500 clamp(1.6rem, 3vw, 3rem)/1 var(--display); }
+.ece-gallery-notes > p { max-width: 48rem; line-height: 1.7; margin: 0; }
+@media (max-width: 800px) {
+  .ece-gallery-notes { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .ece-gallery-toolbar { padding: 1rem; align-items: flex-start; }
+  .ece-gallery-arrows button { width: 2.25rem; height: 2.25rem; }
+  .ece-gallery-thumbs { padding: .75rem; gap: .3rem; }
+  .ece-gallery-notes { padding: 1.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ece-gallery-viewer img, .ece-gallery-thumbs img { transition: none; }
+}

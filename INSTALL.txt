@@ -1,0 +1,18 @@
+ECE PHOTO GALLERY UPDATE — Hitendra Annavarapu portfolio
+
+This ZIP adds the 4 photos you supplied to your ECE project page.
+The existing Python Games, project pile, content.js, and styles.css stay untouched.
+
+1. Open P:\Protfolio (the folder containing package.json) in Windows Explorer.
+2. Unzip this archive directly into that folder. Merge folders and replace src/App.jsx if prompted.
+3. In VS Code terminal (on the ece-integration branch or another branch that already has the ECE card):
+     npm run build
+4. If the build succeeds, commit and push:
+     git add .
+     git commit -m "Add ALU hardware photo gallery"
+     git push origin HEAD:main
+
+Photos are under public/assets-ece/.
+Change the project gallery/captions in src/pages/ECEPage.jsx.
+
+The gallery opens images at full size when the main photograph is clicked.

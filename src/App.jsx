@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Home from './pages/Home'
 import ProjectPage from './pages/ProjectPage'
+import ECEPage from './pages/ECEPage'
 import ResumePage from './pages/ResumePage'
 
 function useRoute() {
@@ -53,6 +54,7 @@ export default function App() {
   let page = <Home />
   if (path === '/resume') page = <ResumePage />
   if (path.startsWith('/projects/')) page = <ProjectPage slug={path.split('/')[2]} />
+  if (path === '/projects/first-ece-projects') page = <ECEPage />
 
   return (
     <>
