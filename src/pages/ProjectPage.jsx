@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
-import { campfireScreens, diskScreens, games, projects } from '../data/content'
+import { campfireScreens, diskScreens, games, eceProjects, projects } from '../data/content'
 
 const rawBase = 'https://raw.githubusercontent.com/Coder-HSK/Coder-HSK.github.io/main'
 
@@ -86,6 +86,81 @@ function GamesCase() {
   )
 }
 
+
+function ECECase() {
+  const [selected, setSelected] = useState(0)
+  const [photoUnavailable, setPhotoUnavailable] = useState(false)
+  const build = eceProjects[selected]
+
+  return (
+    <>
+      <div className="arcade-marquee ece-marquee">
+        <span>LAB NOTES / TEXAS TECH UNIVERSITY</span>
+        <strong>ECE WORKSHOP</strong>
+        <i>REAL CIRCUITS · REAL DEBUGGING · BUILD 01</i>
+      </div>
+      <section className="arcade-grid ece-grid" aria-label="My first ECE projects">
+        {eceProjects.map((item, index) => (
+          <button
+            className={selected === index ? 'selected' : ''}
+            type="button"
+            key={item.slug}
+            onClick={() => { setSelected(index); setPhotoUnavailable(false) }}
+          >
+            <span>BUILD {item.level}</span>
+            <strong>{item.name}</strong>
+            <small>{item.tech}</small>
+            <i aria-hidden="true">{selected === index ? '▶' : '○'}</i>
+          </button>
+        ))}
+        <div className="ece-upcoming">
+          <span>UP NEXT</span>
+          <strong>More builds are coming.</strong>
+          <small>A growing collection of electronics projects.</small>
+        </div>
+      </section>
+      <div className="arcade-status" aria-live="polite">
+        <span>ON THE BENCH</span>
+        <strong>{build.name}</strong>
+        <p>{build.status}. {build.description}</p>
+      </div>
+      <section className="python-console ece-console" aria-label="Selected ECE project">
+        <div className="python-console-bar">
+          <div><i /><i /><i /></div>
+          <span>{build.name} / hardware gallery</span>
+          <span>Build {build.level}</span>
+        </div>
+        <div className="ece-photo-stage">
+          {build.photo && !photoUnavailable ? (
+            <img src={build.photo} alt={build.photoAlt} onError={() => setPhotoUnavailable(true)} />
+          ) : (
+            <div className="ece-photo-placeholder" role="img" aria-label="Illustrated seven-segment placeholder; actual project photo pending">
+              <div className="ece-display-art" aria-hidden="true">
+                <span>74LS283 / LOGIC UNIT</span>
+                <strong>2</strong>
+                <span>7-SEGMENT OUTPUT</span>
+              </div>
+              <p>Build photo coming soon.</p>
+            </div>
+          )}
+        </div>
+        <div className="ece-caption">
+          <div><p className="eyebrow">Build notes / 01</p><h2>{build.name}</h2></div>
+          <p>{build.detail}</p>
+        </div>
+      </section>
+      <section className="case-text-grid ece-notes">
+        <h2>Learning logic.<br />One wire at a time.</h2>
+        <div>
+          <p>Four operations calculate in parallel. A dual multiplexer selects the lower two result bits, while additional gates form a separate carry-control path.</p>
+          <p><strong>Components:</strong> {build.parts.join(' · ')}.</p>
+          <p>Future ECE projects will join this collection, with their own build photos and notes.</p>
+        </div>
+      </section>
+    </>
+  )
+}
+
 function DiskCase() {
   return (
     <>
@@ -107,7 +182,7 @@ function PortfolioCase() {
 
 export default function ProjectPage({ slug }) {
   const project = projects.find((item) => item.slug === slug) || projects[0]
-  const content = { campfire: <CampfireCase />, 'python-games': <GamesCase />, diskmetrics: <DiskCase />, 'robotics-site': <PortfolioCase /> }[project.slug]
+  const content = { campfire: <CampfireCase />, 'python-games': <GamesCase />, 'first-ece-projects': <ECECase />, diskmetrics: <DiskCase />, 'robotics-site': <PortfolioCase /> }[project.slug]
 
   return (
     <>
