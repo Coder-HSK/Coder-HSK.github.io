@@ -18,8 +18,17 @@ export const projects = [
     accent: 'cream',
   },
   {
-    slug: 'diskmetrics',
+    slug: 'first-ece-projects',
     number: '03',
+    title: 'My First ECE Projects',
+    kicker: 'From logic gates to real hardware.',
+    summary: 'An evolving collection of hands-on electronics, starting with a hand-wired 2-bit ALU, four logic operations, and a seven-segment display.',
+    tags: ['Digital Logic', 'Breadboards', 'Hardware'],
+    accent: 'ice',
+  },
+  {
+    slug: 'diskmetrics',
+    number: '04',
     title: 'DiskMetrics',
     kicker: 'Storage, made visible.',
     summary: 'A native macOS menu-bar app for storage health, live I/O activity, capacity alerts, and per-process disk monitoring.',
@@ -28,7 +37,7 @@ export const projects = [
   },
   {
     slug: 'robotics-site',
-    number: '04',
+    number: '05',
     title: 'Portfolio v1',
     kicker: 'The site that started here.',
     summary: 'The original hand-built HTML and CSS portfolio, published on GitHub Pages and evolved into this React experience.',
@@ -47,6 +56,21 @@ export const games = [
   { name: 'Snake', level: '07', tech: 'Python + pygame', file: 'Game_7.html', playable: false },
   { name: 'Space Invaders', level: '08', tech: 'Python + pygame', file: 'Game_8.html', playable: false },
   { name: 'Platformer', level: '09', tech: 'Python + pygame', file: 'Game_9.html', playable: false },
+]
+
+export const eceProjects = [
+  {
+    slug: 'two-bit-alu',
+    level: '01',
+    name: '2-bit Breadboard ALU',
+    tech: 'Digital logic · 7 ICs',
+    status: 'Built · Hardware 100/100',
+    photo: '/assets-ece/alu-display.jpg',
+    photoAlt: 'My finished breadboard 2-bit ALU and its illuminated seven-segment display',
+    description: 'A hand-wired two-bit arithmetic logic unit with addition, bitwise AND, OR, and XOR, routed through a dual multiplexer to a seven-segment display.',
+    detail: 'The adder computes a full three-bit result, while the demonstrated display path shows its lower two bits: 3 + 3 produces 110 in binary but shows 2. The professor awarded 100/100 for the hardware.',
+    parts: ['74LS283 adder', '74HC08 / 32 / 86 logic gates', '74HCU04 inverters', '74HC153 multiplexer', 'CD74HC4511 decoder', 'HDSP-5553 display'],
+  },
 ]
 
 export const timeline = [
